@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.svg';
+import Navbar from './Components/Navbar';
 import './App.css';
 
 function App() {
   return (
+    <Router >
     <div className="App">
+    <Navbar />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -20,6 +24,7 @@ function App() {
         </a>
       </header>
     </div>
+    </Router>
   );
 }
 
