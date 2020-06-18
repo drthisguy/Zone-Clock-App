@@ -10,7 +10,9 @@ export default function NavBar() {
      toggleNav = () => showNavLinks(navLinks = !navLinks)
 
     return (
-        <nav className={'navbar navbar-expand-lg navbar-light bg-light'}>
+        <nav className={'navbar navbar-expand-lg navbar-light bg-light'}
+        style={{backgroundImage: 'linear-gradient(to right, white , #fcaf17)'}}
+        >
             <Link to='/' className={'navbar-brand'}>Sapling Zone Clocks</Link>
             <button onClick={toggleNav} className={'navbar-toggler'} type="button" data-toggle="collapse" data-target="#target-collapse" >
             <span className="navbar-toggler-icon"></span>
@@ -29,7 +31,14 @@ export default function NavBar() {
                     </Link>    
                 </li>
               </ul>
+                    <img alt='logo' src={require("../../assets/img/sapling.png")} style={logo} />
             </Collapse>
         </nav>
     )
+}
+
+const logo = {
+    color: 'white', 
+    float: 'right', 
+    height:'65pt'
 }
