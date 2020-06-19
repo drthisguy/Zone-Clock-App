@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import logo from './logo.svg';
 import Navbar from './Components/Navbar';
+import { Container } from './Components/Grid';
+import ClockMount from './Components/ClockMount';
 import './App.css';
 
 function App() {
@@ -9,6 +11,9 @@ function App() {
     <Router >
     <div className="App">
     <Navbar />
+    <Container >
+    <ClockMount />
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -23,6 +28,7 @@ function App() {
           Learn React
         </a>
       </header>
+      </Container>
     </div>
     </Router>
   );
