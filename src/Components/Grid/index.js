@@ -17,3 +17,5 @@ export const Collapse = ({ navState, children, id }) => {
 
      return <div className={classes} id={id}>{children}</div>
 }
+
+export const Wrapper = ({ children }) => <Container > <Row >{children}</Row></Container>
