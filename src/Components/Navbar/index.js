@@ -38,7 +38,6 @@ export default function NavBar() {
 }
 
 const logo = {
-    backgoundColor: 'white', 
     float: 'right', 
     height:'65pt'
 }
