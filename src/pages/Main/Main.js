@@ -16,6 +16,19 @@ export default function Main() {
                 <Button>Search</Button>
             </form>
           </Col>
+          <Col size="md-9" >
+                <div className="jumbotron">
+                    <Row >
+                        <Col size='md-6'>
+                            <h4>Metropolis City</h4>
+                        </Col>
+                        <Col size='md-6' classes="mt-n5">
+                            <img style={analog} src={require('../../assets/img/clock-ABS.png')} alt="Analog Clock" />
+                        </Col>
+                    </Row>
+
+                </div>
+          </Col>
         </Row>
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -33,4 +46,9 @@ export default function Main() {
           </header>
           </Container>
     )
+}
+
+const analog = {
+    width: '245px',
+    float: 'right'
 }
