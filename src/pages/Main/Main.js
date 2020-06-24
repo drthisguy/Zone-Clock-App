@@ -9,6 +9,8 @@ import API from '../../utils/API'
 export default function Main() {
 
   const [city, setCity] = useState({city: 'Sapling-Inc', country: ''});
+  const [coordinates, setCoordinates] = useState({})
+  const [properName, setProperName] = useState('')
   const [url, setUrl] = useState('')
   const googAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
@@ -18,9 +20,14 @@ export default function Main() {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
-    const response = await API.googleIt(city)
-    console.log("onInputChange -> response", response)
+    const { results, status } = await API.googleIt(city),
 
+    lat = results[0].geometry.location.lat,
+    lng = results[0].geometry.location.lng,
+    place = results[0].formatted_address;
+
+    setCoordinates({ lat, lng })
+    setProperName(place)
 }
 
   useEffect(() => {
@@ -31,6 +38,9 @@ export default function Main() {
     setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
   }, [])
   
+  const getZone= () => {
+    
+  }
 
     return (  
         <Container >
