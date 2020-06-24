@@ -2,22 +2,26 @@ import { useState, useEffect, useRef } from 'react';
 
 
 export const useFetch = url => {
-    const [data, setData] = useState(null),
-     [isLoading, setIsLoading] = useState(false),
-     [hasError, setError] = useState(false),
-     [errorMessage, setErrorMessage] = useState(''),
+    const [ data, setData ] = useState(null),
+     [ isLoading, setIsLoading ] = useState(false),
+     [ hasError, setError ] = useState(false),
+     [ errorMessage, setErrorMessage ] = useState(''),
 
      fetchData = async () => {
         setIsLoading(true)
+
         try {
-          const response = await fetch(url)
-          const result = await response.json()
-          if (response.ok) {
+          const response = await fetch(url),
+           result = await response.json();
+          if (result.status === 'OK') {
             setData(result)
+            console.log("fetchData -> result", result)
           } else {
             setError(true)
-            setErrorMessage(result)
+            setData(result)
+            setErrorMessage('Nothing found. Check spelling. Or if the problem persist, the resource may be down. Try again later.')
           }
+          
           setIsLoading(false)
         } catch (err) {
           setError(true)
@@ -33,7 +37,7 @@ export const useFetch = url => {
     return { data, isLoading, hasError, errorMessage }
 }
 
-//used track previous states for comparison purposes. ex use:  previousItem = usePrevious(itemInput.property),
+//used to track previous states for comparison purposes. ex use:  previousItem = usePrevious(itemInput.property),
  export const usePrevious = value => {
 
         const ref = useRef();

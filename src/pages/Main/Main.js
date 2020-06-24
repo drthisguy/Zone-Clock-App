@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField, Button } from '../../components/Search';
+import { useFetch } from '../../utils/CustomHooks';
+require('dotenv').config();
 
 export default function Main() {
-    return (
+  const googAPIKey = process.env.GOOGLE_API_KEY;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`
+  const fetchAPI = useFetch(url)
+  console.log("Main -> fetchAPI", fetchAPI)
+  
+  useEffect(() => {
+    const { data, isLoading, hasError, errorMessage } = fetchAPI
+    console.log("Main -> fetchAPI", fetchAPI)
+   
+    console.log("fetchSomething -> data", data, isLoading, hasError, errorMessage)
+  }, [])
+  
+
+    return (  
         <Container >
         <ClockMount />
         <Row >
