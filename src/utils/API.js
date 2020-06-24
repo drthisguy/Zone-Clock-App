@@ -1,12 +1,10 @@
-import React from 'react'
-import { useFetch } from './CustomHooks';
+const googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
-const fetchAPI = useFetch()
+
 export default {
-    getSomething: city => {
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=AIzaSyCI3zv9mMZuVUPGueGVIYUyD3etz0VJK7I`,
-         { data, isLoading, hasError, errorMessage } = fetchAPI(url)
+    googleIt: async ({ city, country }) => {
+        const response = await fetch (`https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${country}&key=${googleAPIKey}`)
 
-        return { data, isLoading, hasError, errorMessage }
+        return await response.json();            
     }
 }

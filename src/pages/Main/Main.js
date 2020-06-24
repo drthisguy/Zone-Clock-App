@@ -1,22 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField, Button } from '../../components/Search';
 import { useFetch } from '../../utils/CustomHooks';
-// require('dotenv').config();
+import API from '../../utils/API'
 
 export default function Main() {
+
+  const [city, setCity] = useState({city: 'Sapling-Inc', country: ''});
+  const [url, setUrl] = useState('')
   const googAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`
-  const fetchAPI = useFetch(url)
-  console.log("Main -> fetchAPI", fetchAPI)
-  
+
+  const fetchAPI = useFetch(url),
+
+  onInputChange = async(e) => {
+    const { name, value } = e.target;
+    setCity({ ...city, [name]: value })
+
+    const response = await API.googleIt(city)
+    console.log("onInputChange -> response", response)
+
+}
+
   useEffect(() => {
     const { data, isLoading, hasError, errorMessage } = fetchAPI
-    console.log("Main -> fetchAPI", fetchAPI)
    
-    console.log("fetchSomething -> data", data, isLoading, hasError, errorMessage)
+    console.log("fetchSomething -> data", data, isLoading, hasError, 
+    errorMessage)
+    setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
   }, [])
   
 
@@ -26,8 +38,16 @@ export default function Main() {
         <Row >
           <Col size="md-3" >
             <form class="form-group my-4">
-                <SearchField placeholder="Search a City..." />
-                <SearchField placeholder="State or Country.." />
+                <SearchField 
+                placeholder="Search a City..."
+                name="city"
+                onChange={onInputChange}
+                />
+                <SearchField 
+                placeholder="State or Country.." 
+                name="country"
+                onChange={onInputChange}
+                />
                 <Button>Search</Button>
             </form>
           </Col>
