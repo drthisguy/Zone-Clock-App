@@ -4,10 +4,10 @@ import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField, Button } from '../../components/Search';
 import { useFetch } from '../../utils/CustomHooks';
-require('dotenv').config();
+// require('dotenv').config();
 
 export default function Main() {
-  const googAPIKey = process.env.GOOGLE_API_KEY;
+  const googAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`
   const fetchAPI = useFetch(url)
   console.log("Main -> fetchAPI", fetchAPI)
