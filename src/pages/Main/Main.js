@@ -14,7 +14,6 @@ export default function Main() {
   const [properName, setProperName] = useState('')
   const [predictions, setPredictions] = useState([])
   const [url, setUrl] = useState('')
-  const googAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
   const fetchAPI = useFetch(url),
 
@@ -24,12 +23,11 @@ export default function Main() {
 
     try {
     const { predictions, status } = await API.predictCities({...city, city: value});
-
+    let suggestions;
     if (value.length > 0 && status === 'OK') {
-    
-      let suggestions = predictions.map( x => x.description);
+        suggestions = predictions.map( x => x.description);
+      }
       setPredictions({ suggestions, text: value })
-    }
   } catch(err) {return}
   
     // lat = results[0].geometry.location.lat,
@@ -43,9 +41,8 @@ export default function Main() {
   renderPredictions = () => {
     const { suggestions } = predictions;
 
-    if (!suggestions || suggestions.length < 1) {
-      return
-    }
+    if (!suggestions || suggestions.length < 1) return
+    
     return (
         <ul style={{listStyleType:"none", textAlign:"left"}}>
           {suggestions.map( (suggestion, i) => <li onClick={() => selectPredictions(suggestion)} key={i}>{suggestion}</li>)}
@@ -62,7 +59,7 @@ export default function Main() {
     // const { data, isLoading, hasError, errorMessage } = fetchAPI
    
     
-    setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
+    // setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
   }, [])
   
   const getZone= () => {
