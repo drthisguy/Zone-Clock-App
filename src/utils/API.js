@@ -4,7 +4,7 @@ const googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 export default {
     predictCities: async ({ city, token }) => {
         const proxyURL = "https://cors-anywhere.herokuapp.com/";
-        const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${city}&types=(cities)&language=en&key=${googleAPIKey}&sessiontoken=${token}`; // site that doesn’t send Access-Control-*
+        const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${city}&types=(cities)&language=en&key=${googleAPIKey}&sessiontoken=${token}`; 
         const response = await fetch(proxyURL + url) 
 
         return await response.json();            

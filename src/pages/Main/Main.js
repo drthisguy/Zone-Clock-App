@@ -12,6 +12,7 @@ export default function Main() {
   const [city, setCity] = useState({city: 'Sapling-Inc', token: uuid()});
   const [coordinates, setCoordinates] = useState({})
   const [properName, setProperName] = useState('')
+  const [predictions, setPredictions] = useState([])
   const [url, setUrl] = useState('')
   const googAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
@@ -21,22 +22,46 @@ export default function Main() {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
-    const { predictions, status } = await API.predictCities(city);
-    console.log("onInputChange -> predictions", predictions)
+    try {
+    const { predictions, status } = await API.predictCities({...city, city: value});
 
+    if (value.length > 0 && status === 'OK') {
+    
+      let suggestions = predictions.map( x => x.description);
+      setPredictions({ suggestions, text: value })
+    }
+  } catch(err) {return}
+  
     // lat = results[0].geometry.location.lat,
     // lng = results[0].geometry.location.lng,
     // place = results[0].formatted_address;
 
     // setCoordinates({ lat, lng })
     // setProperName(place)
-}
+},
+
+  renderPredictions = () => {
+    const { suggestions } = predictions;
+
+    if (!suggestions || suggestions.length < 1) {
+      return
+    }
+    return (
+        <ul style={{listStyleType:"none", textAlign:"left"}}>
+          {suggestions.map( (suggestion, i) => <li onClick={() => selectPredictions(suggestion)} key={i}>{suggestion}</li>)}
+        </ul>
+    )
+  }, 
+
+  selectPredictions = value => {
+    setPredictions({ suggestions: [], text: value })
+  }
+
 
   useEffect(() => {
-    const { data, isLoading, hasError, errorMessage } = fetchAPI
+    // const { data, isLoading, hasError, errorMessage } = fetchAPI
    
-    console.log("fetchSomething -> data", data, isLoading, hasError, 
-    errorMessage)
+    
     setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
   }, [])
   
@@ -53,11 +78,15 @@ export default function Main() {
                 <SearchField 
                 placeholder="Search a City..."
                 name="city"
+                value={predictions.text}
+                autocomplete="off"
                 onChange={onInputChange}
                 />
+                {renderPredictions()}
                 <SearchField 
                 placeholder="State or Country.." 
                 name="country"
+                autocomplete="off"
                 onChange={onInputChange}
                 />
                 <Button>Search</Button>
