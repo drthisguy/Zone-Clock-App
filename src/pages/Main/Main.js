@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { uuid } from 'uuidv4';
 import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
@@ -8,7 +9,7 @@ import API from '../../utils/API'
 
 export default function Main() {
 
-  const [city, setCity] = useState({city: 'Sapling-Inc', country: ''});
+  const [city, setCity] = useState({city: 'Sapling-Inc', token: uuid()});
   const [coordinates, setCoordinates] = useState({})
   const [properName, setProperName] = useState('')
   const [url, setUrl] = useState('')
@@ -20,14 +21,15 @@ export default function Main() {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
-    const { results, status } = await API.googleIt(city),
+    const { predictions, status } = await API.predictCities(city);
+    console.log("onInputChange -> predictions", predictions)
 
-    lat = results[0].geometry.location.lat,
-    lng = results[0].geometry.location.lng,
-    place = results[0].formatted_address;
+    // lat = results[0].geometry.location.lat,
+    // lng = results[0].geometry.location.lng,
+    // place = results[0].formatted_address;
 
-    setCoordinates({ lat, lng })
-    setProperName(place)
+    // setCoordinates({ lat, lng })
+    // setProperName(place)
 }
 
   useEffect(() => {
