@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b26dc8df.chunk.css",
+    "main.js": "/static/js/main.2e49242d.chunk.js",
+    "main.js.map": "/static/js/main.2e49242d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.0168c229.js",
+    "runtime-main.js.map": "/static/js/runtime-main.0168c229.js.map",
+    "static/js/2.77b5ed82.chunk.js": "/static/js/2.77b5ed82.chunk.js",
+    "static/js/2.77b5ed82.chunk.js.map": "/static/js/2.77b5ed82.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.12ce09b30460676989f5a4df81e4bb1e.js": "/precache-manifest.12ce09b30460676989f5a4df81e4bb1e.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.b26dc8df.chunk.css.map": "/static/css/main.b26dc8df.chunk.css.map",
+    "static/js/2.77b5ed82.chunk.js.LICENSE.txt": "/static/js/2.77b5ed82.chunk.js.LICENSE.txt",
+    "static/media/DialS.png": "/static/media/DialS.39843a78.png",
+    "static/media/Sapling-RoundMount.png": "/static/media/Sapling-RoundMount.eb663b29.png",
+    "static/media/clock-ABS.png": "/static/media/clock-ABS.9f2b42ca.png",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg",
+    "static/media/sapling.png": "/static/media/sapling.49966c7a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0168c229.js",
+    "static/js/2.77b5ed82.chunk.js",
+    "static/css/main.b26dc8df.chunk.css",
+    "static/js/main.2e49242d.chunk.js"
+  ]
+}
