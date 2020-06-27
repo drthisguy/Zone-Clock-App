@@ -76,14 +76,18 @@ export default function Main() {
         <Row >
           <Col size="md-3" >
             <form class="form-group mb-5">
+              <div>
+              <span className="fas fa-search-location" style={eyeGlass} />
                 <SearchField 
                 placeholder={"Search a City..."}
                 name="name"
                 value={predictions.text}
                 autocomplete="off"
+                style={{textIndent: "30px", borderRadius: "1rem"}}
                 onChange={onInputChange}
                 />
                 {renderPredictions()}
+                </div>
                 <div style={{height:"50px"}} />
                 {/* <Button>Search</Button> */}
             </form>
@@ -123,4 +127,9 @@ export default function Main() {
 const analog = {
     width: '245px',
     float: 'right'
+},
+eyeGlass = {
+  position: 'absolute',
+  top: '10px',
+  left: '25px',
 }
