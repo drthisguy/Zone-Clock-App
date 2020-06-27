@@ -24,3 +24,4 @@ yarn-error.log*
 /package-lock.json
 /.env
 client/.env
+client/node_modules

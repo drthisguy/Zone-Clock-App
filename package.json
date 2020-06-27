@@ -1,7 +1,7 @@
 {
-  "name": "page-tyler-protfolio",
-  "version": "1.0.0",
-  "description": "Mern Portfolio",
+  "name": "zone-clock-utility",
+  "version": "2.0.0",
+  "description": "zoneclock-setup-react",
   "main": "server.js",
   "engines": {
     "node": "12.12.0"
