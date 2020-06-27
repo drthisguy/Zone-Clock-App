@@ -69,10 +69,14 @@ export default function Main() {
   }, [])
   
   const getZone = async city => {
-  console.log("Main -> city", city)
     try{
-    const response = await API.googleThis(city)
-    console.log("getZone -> response", response)
+    const { results } = await API.googleThis(city),
+      [ place ] = results,
+      lat = place.geometry.location.lat,
+      lng = place.geometry.location.lng;
+      
+    setProperName(place.formatted_address)
+    setCoordinates({ lat, lng })
     } catch(err) {console.log(err)}
   }
 

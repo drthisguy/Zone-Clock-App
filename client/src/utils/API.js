@@ -10,8 +10,8 @@ export default {
     }, 
 
     googleThis: async (name) => {
-        const results = await fetch (`/api/coordinates/${name}`)
-        console.log("response", results)
-        return await results.json();     
+        const response = await fetch (`/api/coordinates/${name}`)
+        console.log("response", response)
+        return await response.json();     
     }
 }
