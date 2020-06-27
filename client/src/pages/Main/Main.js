@@ -12,7 +12,7 @@ export default function Main() {
   const [city, setCity] = useState({city: 'Sapling-Inc', token: uuid()});
   const [coordinates, setCoordinates] = useState({})
   const [properName, setProperName] = useState('')
-  const [predictions, setPredictions] = useState([])
+  const [predictions, setPredictions] = useState({})
   const [url, setUrl] = useState('')
 
   const fetchAPI = useFetch(url),
@@ -27,7 +27,7 @@ export default function Main() {
     if (status === 'OK') {
         suggestions = predictions.map( x => x.description);
       }
-      setPredictions({ suggestions, text: value })
+      setPredictions({ suggestions})
   } catch(err) {return}
   
     // lat = results[0].geometry.location.lat,
@@ -73,7 +73,7 @@ export default function Main() {
           <Col size="md-3" >
             <form class="form-group my-4">
                 <SearchField 
-                placeholder="Search a City..."
+                placeholder={"Search a City..."}
                 name="city"
                 value={predictions.text}
                 autocomplete="off"
