@@ -9,13 +9,13 @@ import API from '../../utils/API'
 
 export default function Main() {
 
-  const [city, setCity] = useState({name: 'Sapling-Inc', token: uuid()});
-  const [coordinates, setCoordinates] = useState({})
-  const [properName, setProperName] = useState('')
-  const [predictions, setPredictions] = useState({})
-  const [url, setUrl] = useState('')
+  const [city, setCity] = useState({token: uuid()}),
+   [coordinates, setCoordinates] = useState({}),
+   [properName, setProperName] = useState('Sapling-Inc'),
+   [predictions, setPredictions] = useState({}),
+   [url, setUrl] = useState(''),
 
-  const fetchAPI = useFetch(url),
+   fetchAPI = useFetch(url),
 
   onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -28,8 +28,8 @@ export default function Main() {
       
       suggestions = status === 'OK' ? predictions.map( x => x.description) : ['NETWORK ERROR']
       setPredictions({ suggestions })
-        }
-   catch(err) {return}
+    }
+    catch(err) {return}
     }
     // lat = results[0].geometry.location.lat,
     // lng = results[0].geometry.location.lng,
@@ -37,13 +37,14 @@ export default function Main() {
 
     // setCoordinates({ lat, lng })
     // setProperName(place)
-},
+  },
 
   renderPredictions = () => {
-    const { suggestions } = predictions;
+      const { name } = city,
+      { suggestions } = predictions;
 
     if (!suggestions || suggestions.length < 1) return
-      if (city.name.length < 1){
+      if (name.length < 1){
         setPredictions({...predictions, suggestions: []})
         return
       }
@@ -56,6 +57,7 @@ export default function Main() {
 
   selectPredictions = value => {
     setPredictions({ suggestions: [], text: value })
+    getZone(value)
   }
 
 
@@ -66,8 +68,12 @@ export default function Main() {
     // setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
   }, [])
   
-  const getZone= () => {
-    
+  const getZone = async city => {
+  console.log("Main -> city", city)
+    try{
+    const response = await API.googleThis(city)
+    console.log("getZone -> response", response)
+    } catch(err) {console.log(err)}
   }
 
     return (  
