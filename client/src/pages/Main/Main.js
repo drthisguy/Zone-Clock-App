@@ -48,7 +48,7 @@ export default function Main() {
         return
       }
     return (
-        <ul style={{listStyleType:"none", textAlign:"left"}}>
+        <ul style={{listStyleType:"none", textAlign:"left", position:"absolute"}}>
           {suggestions.map( (suggestion, i) => <li onClick={() => selectPredictions(suggestion)} key={i}>{suggestion}</li>)}
         </ul>
     )
@@ -75,7 +75,7 @@ export default function Main() {
         <ClockMount />
         <Row >
           <Col size="md-3" >
-            <form class="form-group my-4">
+            <form class="form-group mb-5">
                 <SearchField 
                 placeholder={"Search a City..."}
                 name="name"
@@ -84,13 +84,8 @@ export default function Main() {
                 onChange={onInputChange}
                 />
                 {renderPredictions()}
-                <SearchField 
-                placeholder="State or Country.." 
-                name="country"
-                autocomplete="off"
-                onChange={onInputChange}
-                />
-                <Button>Search</Button>
+                <div style={{height:"50px"}} />
+                {/* <Button>Search</Button> */}
             </form>
           </Col>
           <Col size="md-9" >
