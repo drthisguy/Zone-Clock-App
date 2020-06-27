@@ -3,7 +3,7 @@ import { uuid } from 'uuidv4';
 import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
-import { SearchField, Button } from '../../components/Search';
+import { SearchField } from '../../components/Search';
 import { useFetch } from '../../utils/CustomHooks';
 import API from '../../utils/API'
 
@@ -31,12 +31,25 @@ export default function Main() {
     }
     catch(err) {return}
     }
-    // lat = results[0].geometry.location.lat,
-    // lng = results[0].geometry.location.lng,
-    // place = results[0].formatted_address;
+  },
+  
+  onFormSubmit = e => {
+    e.preventDefault();
+    e.target.reset();
+    getCoordinates(city.name)
+  },
 
-    // setCoordinates({ lat, lng })
-    // setProperName(place)
+  getCoordinates = async city => {
+    try{
+    const { results } = await API.googleThis(city),
+      [ place ] = results,
+      lat = place.geometry.location.lat,
+      lng = place.geometry.location.lng;
+      
+    setProperName(place.formatted_address)
+    setCoordinates({ lat, lng })
+    setCity({name: '', token: uuid()})
+    } catch(err) {console.log(err)}
   },
 
   renderPredictions = () => {
@@ -57,35 +70,22 @@ export default function Main() {
 
   selectPredictions = value => {
     setPredictions({ suggestions: [], text: value })
-    getZone(value)
+    getCoordinates(value)
   }
 
 
   useEffect(() => {
     // const { data, isLoading, hasError, errorMessage } = fetchAPI
-   
-    
-    // setUrl(`https://maps.googleapis.com/maps/api/geocode/json?address=paris,+france&key=${googAPIKey}`)
+  
   }, [])
   
-  const getZone = async city => {
-    try{
-    const { results } = await API.googleThis(city),
-      [ place ] = results,
-      lat = place.geometry.location.lat,
-      lng = place.geometry.location.lng;
-      
-    setProperName(place.formatted_address)
-    setCoordinates({ lat, lng })
-    } catch(err) {console.log(err)}
-  }
 
     return (  
         <Container >
         <ClockMount />
         <Row >
           <Col size="md-3" >
-            <form class="form-group mb-5">
+            <form onSubmit={onFormSubmit} class="form-group mb-5">
               <div>
               <span className="fas fa-search-location" style={eyeGlass} />
                 <SearchField 
