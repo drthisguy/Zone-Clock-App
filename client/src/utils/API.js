@@ -2,8 +2,8 @@ const googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
 
 export default {
-    predictCities: async ({ city, token }) => {
-        const response = await fetch(`/api/predictions/${city}/${token}`) 
+    predictCities: async ({ name, token }) => {
+        const response = await fetch(`/api/predictions/${name}/${token}`) 
         console.log("response", response)
 
         return await response.json();            

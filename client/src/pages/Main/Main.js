@@ -9,7 +9,7 @@ import API from '../../utils/API'
 
 export default function Main() {
 
-  const [city, setCity] = useState({city: 'Sapling-Inc', token: uuid()});
+  const [city, setCity] = useState({name: 'Sapling-Inc', token: uuid()});
   const [coordinates, setCoordinates] = useState({})
   const [properName, setProperName] = useState('')
   const [predictions, setPredictions] = useState({})
@@ -21,15 +21,16 @@ export default function Main() {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
+    if (value.length > 0) {
     try {
-    const { predictions, status } = await API.predictCities({...city, city: value});
-    let suggestions;
-    if (status === 'OK') {
-        suggestions = predictions.map( x => x.description);
-      }
-      setPredictions({ suggestions})
-  } catch(err) {return}
-  
+      let suggestions;
+      const { predictions, status } = await API.predictCities({...city, name: value});
+      
+      suggestions = status === 'OK' ? predictions.map( x => x.description) : ['NETWORK ERROR']
+      setPredictions({ suggestions })
+        }
+   catch(err) {return}
+    }
     // lat = results[0].geometry.location.lat,
     // lng = results[0].geometry.location.lng,
     // place = results[0].formatted_address;
@@ -42,7 +43,10 @@ export default function Main() {
     const { suggestions } = predictions;
 
     if (!suggestions || suggestions.length < 1) return
-    
+      if (city.name.length < 1){
+        setPredictions({...predictions, suggestions: []})
+        return
+      }
     return (
         <ul style={{listStyleType:"none", textAlign:"left"}}>
           {suggestions.map( (suggestion, i) => <li onClick={() => selectPredictions(suggestion)} key={i}>{suggestion}</li>)}
@@ -74,7 +78,7 @@ export default function Main() {
             <form class="form-group my-4">
                 <SearchField 
                 placeholder={"Search a City..."}
-                name="city"
+                name="name"
                 value={predictions.text}
                 autocomplete="off"
                 onChange={onInputChange}
