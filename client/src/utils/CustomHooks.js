@@ -32,7 +32,7 @@ export const useFetch = url => {
     
     useEffect(() => {
         fetchData()
-        }, []);
+        }, [url]);
     
     return { data, isLoading, hasError, errorMessage }
 }

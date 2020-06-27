@@ -1,5 +1,3 @@
-const googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
-
 
 export default {
     predictCities: async ({ name, token }) => {

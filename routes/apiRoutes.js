@@ -2,7 +2,9 @@ const express = require('express'),
 fetch = require('node-fetch'),
 router = express.Router(),
 
+timezoneDB_APIKey = process.env.TIMEZONEDB_APIKEY;
 googleAPIKey = process.env.GOOGLE_APIKEY;
+
 
 // loads city predictions when typing
 router.get('/predictions/:city/:token', async ({ params }, res) => {
@@ -18,8 +20,7 @@ router.get('/predictions/:city/:token', async ({ params }, res) => {
 	}
 });
 
-
-// get city coordinate from google first for accuracy before fetching time zone
+// get city coordinate (and some other data) from google first for accuracy, spelling adjustments, etc. timezoneDB works better this way too. 
 router.get('/coordinates/:city', async ({ params }, res) => {
 	const { city } = params;
 	try {
@@ -32,4 +33,19 @@ router.get('/coordinates/:city', async ({ params }, res) => {
 		res.json({ message: err });
 	}
 });
+
+// get time zone data from timezoneDB
+router.get('/timezone/:lat/:lng', async ({ params }, res) => {
+	const { lat, lng } = params;
+	try {
+		const url = `http://api.timezonedb.com/v2.1/get-time-zone?key=${timezoneDB_APIKey}&format=json&by=position&lat=${lat}&lng=${lng}`,
+         fetch_response = await fetch(url),
+		 json = await fetch_response.json();
+
+		res.json(json);
+	} catch (err) {
+		res.json({ message: err });
+	}
+});
+
 module.exports = router;

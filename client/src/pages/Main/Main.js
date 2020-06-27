@@ -36,6 +36,7 @@ export default function Main() {
   onFormSubmit = e => {
     e.preventDefault();
     e.target.reset();
+
     getCoordinates(city.name)
   },
 
@@ -49,7 +50,17 @@ export default function Main() {
     setProperName(place.formatted_address)
     setCoordinates({ lat, lng })
     setCity({name: '', token: uuid()})
+    getZone(lat, lng)
     } catch(err) {console.log(err)}
+  },
+
+  getZone = (lat, lng) => {
+    
+     const zoneURL = `/api/timezone/${lat}/${lng}`;
+
+    setUrl(zoneURL)
+    const { data, isLoading, hasError, errorMessage, url } = fetchAPI
+      console.log('fetched things:', data, isLoading, hasError, errorMessage )
   },
 
   renderPredictions = () => {
@@ -75,10 +86,9 @@ export default function Main() {
 
 
   useEffect(() => {
-    // const { data, isLoading, hasError, errorMessage } = fetchAPI
-  
-  }, [])
-  
+    const { data, isLoading, hasError, errorMessage } = fetchAPI
+      console.log('fetched things:', data, isLoading, hasError, errorMessage )
+  }, [url])
 
     return (  
         <Container >
