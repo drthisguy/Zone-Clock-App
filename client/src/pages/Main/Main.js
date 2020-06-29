@@ -4,19 +4,20 @@ import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
-import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
+import { ListGroup } from '../../components/ListGroup';
+import { useFetch } from '../../utils/CustomHooks';
 import API from '../../utils/API'
 
 export default function Main() {
 
   const [city, setCity] = useState({token: uuid()}),
    [coordinates, setCoordinates] = useState({}),
+   [zoneData, setZoneData] = useState({}),
    [properName, setProperName] = useState('Sapling-Inc'),
    [predictions, setPredictions] = useState({}),
    [url, setUrl] = useState(''),
 
    fetchAPI = useFetch(url),
-   forceUpdate = useForceUpdate(),
 
   onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -60,9 +61,11 @@ export default function Main() {
     const zoneURL = `/api/timezone/${lat}/${lng}`;
 
     setUrl(zoneURL)
-    forceUpdate();
     const { data, isLoading, hasError, errorMessage } = fetchAPI
       console.log('fetched things:', data, isLoading, hasError, errorMessage, url )
+    
+      setZoneData(data)
+    
   },
 
   renderPredictions = () => {
@@ -118,13 +121,13 @@ export default function Main() {
                 <div className="jumbotron">
                     <Row >
                         <Col size='md-6'>
-                            <h4>Metropolis City</h4>
+                            <h4><em>{properName}</em></h4>
+                            <ListGroup data={zoneData} />
                         </Col>
                         <Col size='md-6' classes="mt-n5">
                             <img style={analog} src={require('../../assets/img/clock-ABS.png')} alt="Analog Clock" />
                         </Col>
                     </Row>
-
                 </div>
           </Col>
         </Row>
