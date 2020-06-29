@@ -4,7 +4,7 @@ import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
-import { useFetch } from '../../utils/CustomHooks';
+import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API'
 
 export default function Main() {
@@ -16,6 +16,7 @@ export default function Main() {
    [url, setUrl] = useState(''),
 
    fetchAPI = useFetch(url),
+   forceUpdate = useForceUpdate(),
 
   onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -56,11 +57,12 @@ export default function Main() {
 
   getZone = (lat, lng) => {
     
-     const zoneURL = `/api/timezone/${lat}/${lng}`;
+    const zoneURL = `/api/timezone/${lat}/${lng}`;
 
     setUrl(zoneURL)
-    const { data, isLoading, hasError, errorMessage, url } = fetchAPI
-      console.log('fetched things:', data, isLoading, hasError, errorMessage )
+    forceUpdate();
+    const { data, isLoading, hasError, errorMessage } = fetchAPI
+      console.log('fetched things:', data, isLoading, hasError, errorMessage, url )
   },
 
   renderPredictions = () => {
