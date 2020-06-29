@@ -28,7 +28,7 @@ export default function Main() {
       let suggestions;
       const { predictions, status } = await API.predictCities({...city, name: value});
       
-      suggestions = status === 'OK' ? predictions.map( x => x.description) : ['NETWORK ERROR']
+      suggestions = status === 'OK' ? predictions.map( x => x.description) : ['NO SUGGESTIONS']
       setPredictions({ suggestions })
     }
     catch(err) {return}
