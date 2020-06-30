@@ -5,17 +5,17 @@ import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
-import { useFetch } from '../../utils/CustomHooks';
+import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API'
 
 export default function Main() {
 
   const [city, setCity] = useState({token: uuid()}),
    [coordinates, setCoordinates] = useState({}),
-   [zoneData, setZoneData] = useState({}),
+   [zoneData, setZoneData] = useState({zoneName: 'America/New_York', offset: '-5', bias: '0', dst: 'On'}),
    [properName, setProperName] = useState('Sapling-Inc'),
    [predictions, setPredictions] = useState({}),
-   [url, setUrl] = useState(''),
+   [url, setUrl] = useState('/api/timezone/40.2029196/-75.0847185'),
 
    fetchAPI = useFetch(url),
 
@@ -60,12 +60,12 @@ export default function Main() {
     
     const zoneURL = `/api/timezone/${lat}/${lng}`;
 
+    console.log("getZone -> zoneURL", zoneURL)
     setUrl(zoneURL)
     const { data, isLoading, hasError, errorMessage } = fetchAPI
       console.log('fetched things:', data, isLoading, hasError, errorMessage, url )
     
       setZoneData(data)
-    
   },
 
   renderPredictions = () => {

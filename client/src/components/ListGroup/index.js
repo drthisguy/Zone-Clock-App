@@ -1,20 +1,24 @@
 import React from 'react'
 
-export function ListGroup() {
+export function ListGroup({ data }) {
     return (
         <div>
             <ul  class="list-group">
-                <li style={{border:'none'}} class="list-group-item active d-flex justify-content-between align-items-center">
-                    Cras justo odio
-                    <span class="badge badge-primary badge-pill">14</span>
+                <li style={{border:'none'}} className="list-group-item active d-flex justify-content-between align-items-center">
+                    Time Zone:
+                    <span>{data.zoneName}</span>
                 </li>
-                <li style={{border:'none'}} class="list-group-item d-flex justify-content-between align-items-center">
-                    Dapibus ac facilisis in
-                    <span class="badge badge-primary badge-pill">2</span>
+                <li style={{border:'none'}} className="list-group-item d-flex justify-content-between align-items-center">
+                    GMT Offset:
+                    <span>{data.offset}</span>
                 </li>
-                <li style={{border:'none'}} class="list-group-item d-flex justify-content-between align-items-center">
-                    Morbi leo risus
-                    <span class="badge badge-primary badge-pill">1</span>
+                <li style={{border:'none'}} className="list-group-item d-flex justify-content-between align-items-center">
+                    Bias (Seconds):
+                    <span>{data.bias}</span>
+                </li>
+                <li style={{border:'none'}} className="list-group-item d-flex justify-content-between align-items-center">
+                    Daylight Savings:
+                    <span>{data.dst}</span>
                 </li>
             </ul>
         </div>
