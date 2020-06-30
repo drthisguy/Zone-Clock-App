@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { uuid } from 'uuidv4';
 import logo from '../../logo.svg';
 import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
-import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
+import { useFetch } from '../../utils/CustomHooks';
 import API from '../../utils/API'
 
 export default function Main() {
@@ -15,11 +15,30 @@ export default function Main() {
    [zoneData, setZoneData] = useState({zoneName: 'America/New_York', offset: '-5', bias: '0', dst: 'On'}),
    [properName, setProperName] = useState('Sapling-Inc'),
    [predictions, setPredictions] = useState({}),
-   [url, setUrl] = useState('/api/timezone/40.2029196/-75.0847185'),
+   [url, setUrl] = useState(''),
 
-   fetchAPI = useFetch(url),
+   isInitialMount = useRef(true),
+   fetchCity = useFetch(url);
 
-  onInputChange = async(e) => {
+useEffect(async () => {
+  if (isInitialMount.current) {
+    console.log('hit-*')
+    getSapling()
+   isInitialMount.current = false;
+} else {
+  console.log('hit')
+   const { data } = fetchCity;
+   setZoneData(data)
+  }
+}, [])
+  
+  const getSapling = async () => {
+    const data  = await API.fetchSapling();
+    console.log("Main -> data", data)
+    setZoneData(data)
+  }
+
+  const onInputChange = async(e) => {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
@@ -62,7 +81,7 @@ export default function Main() {
 
     console.log("getZone -> zoneURL", zoneURL)
     setUrl(zoneURL)
-    const { data, isLoading, hasError, errorMessage } = fetchAPI
+    const { data, isLoading, hasError, errorMessage } = fetchCity
       console.log('fetched things:', data, isLoading, hasError, errorMessage, url )
     
       setZoneData(data)
@@ -91,9 +110,11 @@ export default function Main() {
 
 
   useEffect(() => {
-    const { data, isLoading, hasError, errorMessage } = fetchAPI
+    const fetch = async () => {
+    const { data, isLoading, hasError, errorMessage } = await fetchCity
       console.log('fetched things:', data, isLoading, hasError, errorMessage )
-  }, [url])
+    }
+  }, [])
 
     return (  
         <Container >
