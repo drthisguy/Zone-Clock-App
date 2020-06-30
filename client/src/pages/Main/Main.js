@@ -5,32 +5,35 @@ import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
-import { useFetch } from '../../utils/CustomHooks';
+import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API'
 
 export default function Main() {
 
   const [city, setCity] = useState({token: uuid()}),
    [coordinates, setCoordinates] = useState({}),
-   [zoneData, setZoneData] = useState({zoneName: 'America/New_York', offset: '-5', bias: '0', dst: 'On'}),
+   [zoneData, setZoneData] = useState({}),
    [properName, setProperName] = useState('Sapling-Inc'),
    [predictions, setPredictions] = useState({}),
    [url, setUrl] = useState(''),
 
    isInitialMount = useRef(true),
-   fetchCity = useFetch(url);
-
+   forceUpdate = useForceUpdate(),
+   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch()
+   console.log("Main -> zone, isLoading, hasError, errorMessage,", zone, isLoading, hasError, errorMessage,)
+  // setZoneData(zone)
 useEffect(async () => {
   if (isInitialMount.current) {
-    console.log('hit-*')
+    isInitialMount.current = false;
     getSapling()
-   isInitialMount.current = false;
 } else {
-  console.log('hit')
-   const { data } = fetchCity;
-   setZoneData(data)
+  getCoordinates(city.name)
   }
 }, [])
+
+useEffect(() => {
+  forceUpdate();
+}, [zoneData, url])
   
   const getSapling = async () => {
     const data  = await API.fetchSapling();
@@ -66,25 +69,29 @@ useEffect(async () => {
     const { results } = await API.googleThis(city),
       [ place ] = results,
       lat = place.geometry.location.lat,
-      lng = place.geometry.location.lng;
+      lng = place.geometry.location.lng,
+      zoneURL = `/api/timezone/${lat}/${lng}`;
       
     setProperName(place.formatted_address)
     setCoordinates({ lat, lng })
     setCity({name: '', token: uuid()})
-    getZone(lat, lng)
+    updateUrl(zoneURL)
+    // getZone(lat, lng)
     } catch(err) {console.log(err)}
   },
 
-  getZone = (lat, lng) => {
-    
+  getZone = async (lat, lng) => {
     const zoneURL = `/api/timezone/${lat}/${lng}`;
+    
 
     console.log("getZone -> zoneURL", zoneURL)
     setUrl(zoneURL)
-    const { data, isLoading, hasError, errorMessage } = fetchCity
-      console.log('fetched things:', data, isLoading, hasError, errorMessage, url )
-    
-      setZoneData(data)
+    // const { zone, isLoading, hasError, errorMessage, updateUrl } = await useFetch(zoneURL)
+      console.log('fetched things:', zone, isLoading, hasError, errorMessage, url )
+    if (zone !== null) { 
+      setZoneData(zone);
+      console.log('hit')
+    }
   },
 
   renderPredictions = () => {
@@ -109,12 +116,9 @@ useEffect(async () => {
   }
 
 
-  useEffect(() => {
-    const fetch = async () => {
-    const { data, isLoading, hasError, errorMessage } = await fetchCity
-      console.log('fetched things:', data, isLoading, hasError, errorMessage )
-    }
-  }, [])
+  // useEffect(() => {
+  //   updateUrl(url)
+  // }, [url])
 
     return (  
         <Container >
@@ -142,8 +146,8 @@ useEffect(async () => {
                 <div className="jumbotron">
                     <Row >
                         <Col size='md-6'>
-                            <h4><em>{properName}</em></h4>
-                            <ListGroup data={zoneData} />
+                            <h4 style={{marginTop:'-40px'}}><em>{properName}</em></h4>
+                            {isLoading ? <div></div> : <ListGroup data={zone} />}
                         </Col>
                         <Col size='md-6' classes="mt-n5">
                             <img style={analog} src={require('../../assets/img/clock-ABS.png')} alt="Analog Clock" />

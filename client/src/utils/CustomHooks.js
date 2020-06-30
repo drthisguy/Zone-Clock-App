@@ -1,24 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
 
 
-export const useFetch = url => {
-    const [ data, setData ] = useState(null),
-     [ isLoading, setIsLoading ] = useState(false),
-     [ hasError, setError ] = useState(false),
-     [ errorMessage, setErrorMessage ] = useState(''),
+export const useFetch = () => {
+    const [ zone, setZone ] = useState(null),
+    [ isLoading, setIsLoading ] = useState(true),
+    [ hasError, setError ] = useState(false),
+    [ errorMessage, setErrorMessage ] = useState(''),
+    [ url, updateUrl ] = useState('/api/timezone/40.2029196/-75.0847185'),
 
-     fetchData = async () => {
-        setIsLoading(true)
+     fetchZone = async () => {
+        // setIsLoading(true)
 
         try {
           const response = await fetch(url),
            result = await response.json();
           if (result.status === 'OK') {
-            setData(result)
-            console.log("fetchData -> result", result)
+            setZone(result)
+            console.log("fetchZone -> result", result)
           } else {
             setError(true)
-            setData(result)
+            setZone(result)
             setErrorMessage('Nothing found. Check spelling. Or if the problem persist, the resource may be down. Try again later.')
           }
           
@@ -31,10 +32,10 @@ export const useFetch = url => {
     }
     
     useEffect(() => {
-        fetchData()
+        fetchZone()
         }, [url]);
     
-    return { data, isLoading, hasError, errorMessage }
+    return { zone, isLoading, hasError, errorMessage, updateUrl }
 }
 
 //used to track previous states for comparison purposes. ex use:  previousItem = usePrevious(itemInput.property),
