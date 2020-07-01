@@ -38,5 +38,5 @@ export const FormatZone = zone => {
      //other data used
      const { zoneName } = zone;
     
-    return { zoneName, offset, bias, dst, dstStart, dstEnd };
+    return { zoneName, offset, bias, dst, dstStart, dstEnd, rawOffset };
 }

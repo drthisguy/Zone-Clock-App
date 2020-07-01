@@ -116,7 +116,7 @@ export default function Main() {
                             <img style={analog} src={require('../../assets/img/clock-ABS.png')} alt="Analog Clock" />
                          </Row>
                          <Row classes="justify-content-center mt-2">
-                            {isLoading ? <div></div> : <DigitalClock offset={zone.offset} />}
+                            {isLoading ? <div></div> : <DigitalClock offset={zone.rawOffset} />}
                         </Row>
                         </Col>
                     </Row>
