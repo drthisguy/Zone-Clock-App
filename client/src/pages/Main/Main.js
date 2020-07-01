@@ -78,7 +78,7 @@ export default function Main() {
   }, 
 
   selectPredictions = value => {
-    setPredictions({ suggestions: [], text: value })
+    setPredictions({ suggestions: [], text: '' })
     getCoordinates(value)
   }
 
