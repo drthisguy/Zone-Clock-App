@@ -5,22 +5,24 @@ import { Container, Row, Col } from '../../components/Grid';
 import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
+import { DigitalClock } from '../../components/DigitalClock';
 import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API' 
 
 export default function Main() {
 
-  const [city, setCity] = useState({token: uuid()}),
-   [coordinates, setCoordinates] = useState({}),
-   [zoneData, setZoneData] = useState({}),
-   [properName, setProperName] = useState('Sapling, Warminster, Pa'),
-   [predictions, setPredictions] = useState({}),
-   [url, setUrl] = useState(''),
+  const [ city, setCity ] = useState({token: uuid()}),
+   [ coordinates, setCoordinates ] = useState({}),
+   [ clockOffset, setClockOffset ] = useState('12:00:00 AM'),
+   [ properName, setProperName ] = useState('Sapling, Warminster, Pa'),
+   [ predictions, setPredictions ] = useState({}),
+   [ url, setUrl ] = useState(''),
 
   
    forceUpdate = useForceUpdate(),
    { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
    console.log("Main -> zone, isLoading, hasError, errorMessage,", zone, isLoading, hasError, errorMessage,)
+ 
 
   const onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -100,7 +102,6 @@ export default function Main() {
                 {renderPredictions()}
                 </div>
                 <div style={{height:"50px"}} />
-                {/* <Button>Search</Button> */}
             </form>
           </Col>
           <Col size="md-9" >
@@ -110,8 +111,13 @@ export default function Main() {
                             <h4 style={{marginTop:'-40px'}}><em>{properName}</em></h4>
                             {isLoading ? <div></div> : <ListGroup data={zone} />}
                         </Col>
-                        <Col size='md-6' classes="mt-n5">
+                        <Col size='md-4' classes="mt-n5 offset-md-2">
+                          <Row>
                             <img style={analog} src={require('../../assets/img/clock-ABS.png')} alt="Analog Clock" />
+                         </Row>
+                         <Row classes="justify-content-center mt-2">
+                            {isLoading ? <div></div> : <DigitalClock offset={zone.offset} />}
+                        </Row>
                         </Col>
                     </Row>
                 </div>

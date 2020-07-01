@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const FormatZone = (zone) => {
+export const FormatZone = zone => {
 
-    const zoneName = zone.zoneName;
+    let { dst, gmtOffset, zoneStart, zoneEnd } = zone;
 
     //get real offset in hours
-    const dst = zone.dst == 1 ? 'On' : 'Off',
-     rawOffset = zone.gmtOffset/3600,
-     preOff = dst === 'On' ? rawOffset - 1 : rawOffset;
+     dst = dst == 1 ? 'ON' : 'OFF';
+    const rawOffset = gmtOffset/3600,
+     preOff = dst === 'ON' ? rawOffset - 1 : rawOffset;
     let offset = Math.floor(preOff);
      offset = offset > 0 ? '+'+ offset : offset;
 
@@ -17,8 +17,8 @@ export const FormatZone = (zone) => {
      bias = bias !==0 ? '+'+ bias : bias;
     
     //reformat unix dst dates
-    let dstStart = new Date(zone.zoneStart*1000);
-    let dstEnd = new Date(zone.zoneEnd*1000);
+    let dstStart = new Date(zoneStart*1000);
+    let dstEnd = new Date(zoneEnd*1000);
 
     //convert dst times from EST to its local time.
      dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset()*60000);
@@ -27,13 +27,16 @@ export const FormatZone = (zone) => {
      dstEnd = new Date(dstEnd + 3600000*rawOffset);
 
     //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. 
-    if(new Date() > dstStart && new Date() < dstEnd && dst === 'Off'){
+    if(new Date() > dstStart && new Date() < dstEnd && dst === 'OFF'){
         const a = dstStart;
         dstStart = dstEnd;
         dstEnd = a;
     }
     //create a condition for no DST. 
      dstEnd = dstEnd.getYear() === 69 || dstEnd.getYear() === 70 ? 'none' : dstEnd;
+
+     //other data used
+     const { zoneName } = zone;
     
     return { zoneName, offset, bias, dst, dstStart, dstEnd };
 }
