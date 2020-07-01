@@ -17,29 +17,10 @@ export default function Main() {
    [predictions, setPredictions] = useState({}),
    [url, setUrl] = useState(''),
 
-   isInitialMount = useRef(true),
-   forceUpdate = useForceUpdate(),
-   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch()
-   console.log("Main -> zone, isLoading, hasError, errorMessage,", zone, isLoading, hasError, errorMessage,)
-  // setZoneData(zone)
-useEffect(async () => {
-  if (isInitialMount.current) {
-    isInitialMount.current = false;
-    getSapling()
-} else {
-  getCoordinates(city.name)
-  }
-}, [])
-
-useEffect(() => {
-  forceUpdate();
-}, [zoneData, url])
   
-  const getSapling = async () => {
-    const data  = await API.fetchSapling();
-    console.log("Main -> data", data)
-    setZoneData(data)
-  }
+   forceUpdate = useForceUpdate(),
+   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
+   console.log("Main -> zone, isLoading, hasError, errorMessage,", zone, isLoading, hasError, errorMessage,)
 
   const onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -80,20 +61,6 @@ useEffect(() => {
     } catch(err) {console.log(err)}
   },
 
-  getZone = async (lat, lng) => {
-    const zoneURL = `/api/timezone/${lat}/${lng}`;
-    
-
-    console.log("getZone -> zoneURL", zoneURL)
-    setUrl(zoneURL)
-    // const { zone, isLoading, hasError, errorMessage, updateUrl } = await useFetch(zoneURL)
-      console.log('fetched things:', zone, isLoading, hasError, errorMessage, url )
-    if (zone !== null) { 
-      setZoneData(zone);
-      console.log('hit')
-    }
-  },
-
   renderPredictions = () => {
       const { name } = city,
       { suggestions } = predictions;
@@ -114,11 +81,6 @@ useEffect(() => {
     setPredictions({ suggestions: [], text: value })
     getCoordinates(value)
   }
-
-
-  // useEffect(() => {
-  //   updateUrl(url)
-  // }, [url])
 
     return (  
         <Container >
