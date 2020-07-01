@@ -6,14 +6,14 @@ import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
-import API from '../../utils/API'
+import API from '../../utils/API' 
 
 export default function Main() {
 
   const [city, setCity] = useState({token: uuid()}),
    [coordinates, setCoordinates] = useState({}),
    [zoneData, setZoneData] = useState({}),
-   [properName, setProperName] = useState('Sapling-Inc'),
+   [properName, setProperName] = useState('Sapling, Warminster, Pa'),
    [predictions, setPredictions] = useState({}),
    [url, setUrl] = useState(''),
 
@@ -57,7 +57,6 @@ export default function Main() {
     setCoordinates({ lat, lng })
     setCity({name: '', token: uuid()})
     updateUrl(zoneURL)
-    // getZone(lat, lng)
     } catch(err) {console.log(err)}
   },
 

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { FormatZone } from './Helpers'
 
 
+//I'm using this hook for more granular control & handling for my API call to timezoneDB.
 export const useFetch = () => {
     const [ zone, setZone ] = useState(null),
     [ isLoading, setIsLoading ] = useState(true),
@@ -9,14 +11,13 @@ export const useFetch = () => {
     [ url, updateUrl ] = useState('/api/timezone/40.2029196/-75.0847185'),
 
      fetchZone = async () => {
-        // setIsLoading(true)
-
         try {
           const response = await fetch(url),
            result = await response.json();
           if (result.status === 'OK') {
-            setZone(result)
-            console.log("fetchZone -> result", result)
+            const saplingZone = FormatZone(result)
+            console.log("fetchZone -> saplingZone", saplingZone)
+            setZone(saplingZone)
           } else {
             setError(true)
             setZone(result)
@@ -30,7 +31,6 @@ export const useFetch = () => {
           setIsLoading(false)
         }
     }
-    
     useEffect(() => {
         fetchZone()
         }, [url]);
