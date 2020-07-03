@@ -6,6 +6,7 @@ import ClockMount from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { DigitalClock } from '../../components/DigitalClock';
+import { AnalogClock } from '../../components/AnalogClock';
 import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API' 
 
@@ -113,7 +114,7 @@ export default function Main() {
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">
                           <Row>
-                            <img style={analog} src={require('../../assets/img/clock-ABS.png')} alt="Analog Clock" />
+                          {isLoading ? <div></div> : <AnalogClock offset={zone.rawOffset} />}
                          </Row>
                          <Row classes="justify-content-center mt-2">
                             {isLoading ? <div></div> : <DigitalClock offset={zone.rawOffset} />}

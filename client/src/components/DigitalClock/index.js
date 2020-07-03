@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 export function DigitalClock({ offset }) {
 
-    const [ cityTime, setCityTime ] = useState('12:00:00 AM');
+    const [ timeString, setTimeString ] = useState('12:00:00 AM');
     
     useEffect(() => {
         const timer = setInterval(localClock, 1000)  
@@ -30,13 +30,13 @@ export function DigitalClock({ offset }) {
             localHours = localHours == 0  ? 12 : localHours;
 
         const localTimeString = localHours + ':' + localMinutes + ':' + localSeconds + ' ' + timeOfDay;
-        setCityTime(localTimeString);   
+        setTimeString(localTimeString);   
     }  
 
 
     return (
         <div>
-            <h2>{cityTime}</h2>
+            <h2>{timeString}</h2>
         </div>
     )
 }
