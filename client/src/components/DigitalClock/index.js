@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+
 
 export function DigitalClock({ offset }) {
-console.log("DigitalClock -> offset", offset)
 
-    const [ cityTime, setCityTime ] = useState('12:00:00 AM'),
+    const [ cityTime, setCityTime ] = useState('12:00:00 AM');
+    
+    useEffect(() => {
+        const timer = setInterval(localClock, 1000)  
+            return () => clearInterval(timer)
+        }, [offset])
 
-
-    localClock = () => {
-      
+    const localClock = () => {
         const userTime = new Date(),
 
             //convert user time to local time.
-            utc = userTime.getTime() + (userTime.getTimezoneOffset() * 1000),
-            localTime = new Date(utc + 1000 * (offset*60));
-            console.log("localClock -> localTime", userTime.getTimezoneOffset(), userTime.getTime())
+            msOffset = offset * 3600,  // -> milliseconds
+            utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60000),
+            localTime = new Date(utc + 1000 * msOffset);
         
         let localHours = localTime.getHours(),
             localMinutes = localTime.getMinutes(),
@@ -27,10 +30,9 @@ console.log("DigitalClock -> offset", offset)
             localHours = localHours == 0  ? 12 : localHours;
 
         const localTimeString = localHours + ':' + localMinutes + ':' + localSeconds + ' ' + timeOfDay;
-        setCityTime(localTimeString);
-    }
+        setCityTime(localTimeString);   
+    }  
 
-    setInterval(localClock, 1000);    
 
     return (
         <div>

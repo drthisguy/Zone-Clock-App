@@ -41,12 +41,16 @@ export const useFetch = () => {
 //used to track previous states for comparison purposes. ex use:  previousItem = usePrevious(itemInput.property),
  export const usePrevious = value => {
 
-        const ref = useRef();
+        const ref = useRef(false),
+         refValue = useRef()
+        console.log(ref.current, value)
         useEffect(() => {
-        ref.current = value;
+          if(ref.current !== value) {
+          refValue.current = value;
+          ref.current = true;
+          }
         }, [value]);
-
-    return ref.current;
+        return ref.current;  
 }
 
 //force the re-rendering of state.
