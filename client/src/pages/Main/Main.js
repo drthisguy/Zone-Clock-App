@@ -109,7 +109,7 @@ export default function Main() {
                 <div className="jumbotron">
                     <Row >
                         <Col size='md-6'>
-                            <h4 style={{marginTop:'-40px'}}><em>{properName}</em></h4>
+                            <h4 style={{marginTop:'-40px'}}><em><b>{properName}</b></em></h4>
                             {isLoading ? <div></div> : <ListGroup data={zone} />}
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">

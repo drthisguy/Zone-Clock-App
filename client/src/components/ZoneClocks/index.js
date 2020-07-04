@@ -1,6 +1,6 @@
 import React, { useState, useEffect  } from 'react'
 
-export function AnalogClock({ offset }) {
+export function ZoneClocks({ offset }) {
 
     const [ hands, setHands ] = useState({});
 
@@ -56,8 +56,8 @@ export function AnalogClock({ offset }) {
 }
 
 const mount = {
-    width: '250px',  
-    height: '250px',
+    width: '150px',  
+    height: '150px',
     textAlign: 'center',    
     display: 'flex',
     flexDirection: 'column',
@@ -67,8 +67,8 @@ analog = {
     minWidth: '100%',
     minHeight: '100%',
     position: 'relative',
-    backgroundImage: `url(${require("../../assets/img/clock-ABS.png")}`,
-    backgroundSize: '250px',
+    backgroundImage: `url(${require("../../assets/img/DialA.png")}`,
+    backgroundSize: '150px',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     listStyle: 'none'
