@@ -9,8 +9,7 @@ export function AnalogClock({ offset }) {
             return () => clearInterval(timer)
         }, [offset])
 
-
-    const formatTime = time => time < 10 ? `0${time}` : time,
+    const { hourHand, minuteHand, secondHand } = hands,
 
     localClock = () => {
 
@@ -33,19 +32,30 @@ export function AnalogClock({ offset }) {
          setHands({ hourHand, minuteHand, secondHand })
     }
 
-    const { hourHand, minuteHand, secondHand } = hands;
-
     return (
         <div style={mount} >
             <ul style={analog}>
                 <li><img src={require('../../assets/img/second-hand.png')} 
-                    style={{...clockHands, transform: `rotate(${secondHand}deg)`, margin:'45px 0 0 -32px', zIndex:'2'}} 
+                    style={{...clockHands, transform: `rotate(${secondHand}deg)`, 
+                    // margin:'45px 0 0 -32px',
+                    top: '45px',
+                    left: '113px',
+                    zIndex:'2'}} 
                     /></li>
                 <li><img src={require('../../assets/img/minute-hand.png')} 
-                    style={{...clockHands, transform: `rotate(${minuteHand}deg)`, margin:'40px 0 0 -32px', transformOrigin: '50% 77%', zIndex:'1'}} 
+                    style={{...clockHands, transform: `rotate(${minuteHand}deg)`, 
+                    // margin:'40px 0 0 -32px', 
+                    top: '40px',
+                    right: '113px',
+                    transformOrigin: '50% 77%', zIndex:'1'}} 
                     /></li> 
                 <li><img src={require('../../assets/img/hour-hand.png')} 
-                    style={{...clockHands, transform: `rotate(${hourHand}deg)`, margin:'47px 0 0 -32px', transformOrigin: '50% 70%', zIndex:'0'}} 
+                    style={{...clockHands, transform: `rotate(${hourHand}deg)`,
+                    // margin:'47px 0 0 -32px', 
+                    top: '45px',
+                    left: '113px ',
+                    transformOrigin: '50% 70%', 
+                    zIndex:'0'}} 
                     /></li>
             </ul>
         </div>
@@ -58,8 +68,7 @@ const mount = {
     textAlign: 'center',    
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyItems: 'center'
+    alignItems: 'center'
 },
 analog = {
     minWidth: '100%',
@@ -69,7 +78,6 @@ analog = {
     backgroundSize: '250px',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    justifyItems: 'center', 
     listStyle: 'none'
 },
 clockHands = {
