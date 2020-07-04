@@ -13,11 +13,23 @@ export function AnalogClock({ offset }) {
     const formatTime = time => time < 10 ? `0${time}` : time,
 
     localClock = () => {
-        const date = new Date();
-        date.setHours(date.getHours() + offset);
-        let hourHand = formatTime(date.getHours()),
-         minuteHand = formatTime(date.getMinutes()),
-         secondHand = formatTime(date.getSeconds());
+
+        const userTime = new Date(),
+
+        //convert user time to local time.
+            msOffset = offset * 3600,  // -> milliseconds
+            utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60000),
+            localTime = new Date(utc + 1000 * msOffset);
+
+        let localHours = localTime.getHours(),
+            localMinutes = localTime.getMinutes(),
+            localSeconds = localTime.getSeconds(),
+        
+        //Set the angle for each clock hand
+            hourHand = localHours * 30 + (localMinutes/2),  // 360/12 = 30 + 15degrees for 30min (example)
+            minuteHand = localMinutes * 6,  // 360/60 = 6
+            secondHand = localSeconds * 6; // 360/60 = 6
+
          setHands({ hourHand, minuteHand, secondHand })
     }
 
@@ -26,9 +38,15 @@ export function AnalogClock({ offset }) {
     return (
         <div style={mount} >
             <ul style={analog}>
-                <li><img src={require('../../assets/img/second-hand.png')} style={{...clockHands, transform: `rotate(${secondHand * 6}deg)`}} /></li>
-                {/* <div style={{...clockHands, transform: `rotate(${minuteHand * 6}deg)`}} />
-                <div style={{...clockHands, transform: `rotate(${hourHand * 30}deg)`}} />              */}
+                <li><img src={require('../../assets/img/second-hand.png')} 
+                    style={{...clockHands, transform: `rotate(${secondHand}deg)`, margin:'45px 0 0 -32px', zIndex:'2'}} 
+                    /></li>
+                <li><img src={require('../../assets/img/minute-hand.png')} 
+                    style={{...clockHands, transform: `rotate(${minuteHand}deg)`, margin:'40px 0 0 -32px', transformOrigin: '50% 77%', zIndex:'1'}} 
+                    /></li> 
+                <li><img src={require('../../assets/img/hour-hand.png')} 
+                    style={{...clockHands, transform: `rotate(${hourHand}deg)`, margin:'47px 0 0 -32px', transformOrigin: '50% 70%', zIndex:'0'}} 
+                    /></li>
             </ul>
         </div>
     )
@@ -41,6 +59,7 @@ const mount = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyItems: 'center'
 },
 analog = {
     minWidth: '100%',
@@ -50,10 +69,11 @@ analog = {
     backgroundSize: '250px',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
+    justifyItems: 'center', 
+    listStyle: 'none'
 },
 clockHands = {
-    width: '27px',
-    margin:'37px 0 0 -35px',
+    width: '25px',
     position: 'absolute',
-    transformOrigin: '50% 65%',
+    transformOrigin: '50% 64%',
 }
