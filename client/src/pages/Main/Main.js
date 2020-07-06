@@ -7,6 +7,7 @@ import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
+import { WorldMap } from '../../components/WorldMap';
 import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API' 
 
@@ -121,6 +122,13 @@ export default function Main() {
                         </Row>
                         </Col>
                     </Row>
+                </div>
+                <div className="jumbotron">
+                  <Row >
+                    <Col size='md-4'>
+                      <WorldMap />
+                    </Col>
+                  </Row>
                 </div>
           </Col>
         </Row>

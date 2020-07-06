@@ -47,5 +47,4 @@ router.get('/timezone/:lat/:lng', async ({ params }, res) => {
 		res.json({ message: err });
 	}
 });
-
 module.exports = router;
