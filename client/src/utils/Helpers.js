@@ -1,5 +1,21 @@
 import React from 'react';
 
+export const getLocalTime = offset => {
+
+    const userTime = new Date(),
+
+    //convert user time to local time.
+        msOffset = offset * 3600,  // -> milliseconds
+        utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60000),
+        localTime = new Date(utc + 1000 * msOffset);
+
+    let localHours = localTime.getHours(),
+        localMinutes = localTime.getMinutes(),
+        localSeconds = localTime.getSeconds();
+
+    return { localHours, localMinutes, localSeconds }
+}
+
 export const FormatZone = zone => {
 
     let { dst, gmtOffset, zoneStart, zoneEnd } = zone;
@@ -27,7 +43,7 @@ export const FormatZone = zone => {
      dstEnd = new Date(dstEnd + 3600000*rawOffset);
 
     //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. 
-    if(new Date() > dstStart && new Date() < dstEnd && dst === 'OFF'){
+    if(new Date() > dstStart && new Date() < dstEnd && dst === 'OFF') {
         const a = dstStart;
         dstStart = dstEnd;
         dstEnd = a;

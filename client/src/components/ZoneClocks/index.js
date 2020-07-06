@@ -1,4 +1,5 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useState, useEffect } from 'react';
+import { getLocalTime } from '../../utils/Helpers';
 
 export function ZoneClocks({ offset, position }) {
 
@@ -13,16 +14,7 @@ export function ZoneClocks({ offset, position }) {
 
     localClock = () => {
 
-        const userTime = new Date(),
-
-        //convert user time to local time.
-            msOffset = offset * 3600,  // -> milliseconds
-            utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60000),
-            localTime = new Date(utc + 1000 * msOffset);
-
-        let localHours = localTime.getHours(),
-            localMinutes = localTime.getMinutes(),
-            localSeconds = localTime.getSeconds(),
+        let { localHours, localMinutes, localSeconds } = getLocalTime(offset),
         
         //Set the angle for each clock hand
             hourHand = localHours * 30 + (localMinutes/2),  // 360/12 = 30 + 15degrees for 30min (example)
@@ -68,7 +60,6 @@ analog = {
     minHeight: '100%',
     position: 'relative',
     listStyle: 'none',
-    // top: '15px',
     backgroundSize: '230',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',

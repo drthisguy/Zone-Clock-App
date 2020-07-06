@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { getLocalTime } from '../../utils/Helpers';
 
 export function DigitalClock({ offset }) {
 
@@ -8,19 +8,10 @@ export function DigitalClock({ offset }) {
     useEffect(() => {
         const timer = setInterval(localClock, 1000)  
             return () => clearInterval(timer)
-        }, [offset])
+    }, [offset])
 
     const localClock = () => {
-        const userTime = new Date(),
-
-            //convert user time to local time.
-            msOffset = offset * 3600,  // -> milliseconds
-            utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60000),
-            localTime = new Date(utc + 1000 * msOffset);
-        
-        let localHours = localTime.getHours(),
-            localMinutes = localTime.getMinutes(),
-            localSeconds = localTime.getSeconds();
+        let { localHours, localMinutes, localSeconds } = getLocalTime(offset);
 
             localMinutes = (localMinutes < 10 ? '0' : '') + localMinutes;
             localSeconds = (localSeconds < 10 ? '0' : '') + localSeconds;
