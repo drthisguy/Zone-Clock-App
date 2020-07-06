@@ -8,8 +8,9 @@ return (
     <div style={background}>
         <div style={{height: '1px'}}></div>
         <ZoneClocks offset={10} position={{left: '86px', top: '15px'}} />
-        <ZoneClocks offset={-5} position={{left: '261px', top: '-3px'}} />
-        <ZoneClocks offset={0} position={{left: '430px', top: '-15px'}} />
+        <ZoneClocks offset={-4} position={{left: '261px', top: '-3px'}} />
+        <ZoneClocks offset={1} position={{left: '430px', top: '-15px'}} />
+        <ZoneClocks offset={4} position={{left: '610px', top: '-35px'}} />
     </div>
 )
 }
