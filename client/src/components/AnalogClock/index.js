@@ -7,7 +7,7 @@ export function AnalogClock({ offset }) {
     useEffect(() => {
         const timer = setInterval(localClock, 1000)  
             return () => clearInterval(timer)
-        }, [offset])
+    }, [offset])
 
     const { hourHand, minuteHand, secondHand } = hands,
 
@@ -67,15 +67,15 @@ analog = {
     minWidth: '100%',
     minHeight: '100%',
     position: 'relative',
-    backgroundImage: `url(${require("../../assets/img/clock-ABS.png")}`,
+    listStyle: 'none',
     backgroundSize: '250px',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    listStyle: 'none'
+    backgroundImage: `url(${require("../../assets/img/clock-ABS.png")}`
 },
 hrHand = {
     width: '25px',
-    top: '47px',
+    top: '49px',
     left: '112px ',
     position: 'absolute',
     transformOrigin: '50% 69%', 
@@ -83,7 +83,7 @@ hrHand = {
 },
 minHand = {
     width: '25px',
-    top: '39px',
+    top: '37px',
     left: '113px',
     position: 'absolute',
     transformOrigin: '50% 78%', 

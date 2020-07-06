@@ -1,13 +1,13 @@
 import React, { useState, useEffect  } from 'react'
 
-export function ZoneClocks({ offset }) {
+export function ZoneClocks({ offset, position }) {
 
     const [ hands, setHands ] = useState({});
 
     useEffect(() => {
         const timer = setInterval(localClock, 1000)  
             return () => clearInterval(timer)
-        }, [offset])
+    }, [offset])
 
     const { hourHand, minuteHand, secondHand } = hands,
 
@@ -34,7 +34,7 @@ export function ZoneClocks({ offset }) {
 
     return (
         <div style={mount} >
-            <ul style={analog}>
+            <ul style={{...analog, left: position.left, top: position.top }}>
                 <li>
                     <img src={require('../../assets/img/hour-hand.png')} 
                     style={{...hrHand, transform: `rotate(${hourHand}deg)`}} 
@@ -56,8 +56,8 @@ export function ZoneClocks({ offset }) {
 }
 
 const mount = {
-    width: '150px',  
-    height: '150px',
+    width: '230',  
+    height: '230',
     textAlign: 'center',    
     display: 'flex',
     flexDirection: 'column',
@@ -67,32 +67,33 @@ analog = {
     minWidth: '100%',
     minHeight: '100%',
     position: 'relative',
-    backgroundImage: `url(${require("../../assets/img/DialA.png")}`,
-    backgroundSize: '150px',
+    listStyle: 'none',
+    // top: '15px',
+    backgroundSize: '230',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    listStyle: 'none'
+    backgroundImage: `url(${require("../../assets/img/DialA.png")}`
 },
 hrHand = {
-    width: '25px',
-    top: '47px',
-    left: '112px ',
+    width: '15px',
+    top: '48px',
+    left: '114px ',
     position: 'absolute',
     transformOrigin: '50% 69%', 
     zIndex:'0'
 },
 minHand = {
-    width: '25px',
-    top: '39px',
-    left: '113px',
+    width: '15px',
+    top: '43px',
+    left: '114px',
     position: 'absolute',
     transformOrigin: '50% 78%', 
     zIndex:'1'
 },
 secHand = {
-    width: '25px',
-    top: '45px',
-    left: '113px',
+    width: '15px',
+    top: '47px',
+    left: '114px',
     position: 'absolute',
     transformOrigin: '50% 63%',
     zIndex:'2'
