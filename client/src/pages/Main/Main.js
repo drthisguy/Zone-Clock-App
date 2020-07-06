@@ -91,17 +91,17 @@ export default function Main() {
           <Col size="md-3" >
             <form onSubmit={onFormSubmit} class="form-group mb-5">
               <div>
-              <span className="fas fa-search-location" style={eyeGlass} />
-                <SearchField 
-                placeholder={"Search a City..."}
-                name="name"
-                value={predictions.text}
-                autocomplete="off"
-                style={{textIndent: "30px", borderRadius: "1rem"}}
-                onChange={onInputChange}
-                />
-                {renderPredictions()}
-                </div>
+                <span className="fas fa-search-location" style={eyeGlass} />
+                  <SearchField 
+                  placeholder={"Search a City..."}
+                  autocomplete="off"
+                  name="name"
+                  value={predictions.text}
+                  style={{textIndent: "30px", borderRadius: "1rem"}}
+                  onChange={onInputChange}
+                  />
+                  {renderPredictions()}
+              </div>
                 <div style={{height:"50px"}} />
             </form>
           </Col>

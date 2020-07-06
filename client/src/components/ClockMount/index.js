@@ -1,8 +1,6 @@
 import React from 'react';
 import { ZoneClocks } from '../ZoneClocks';
 
-
-
 export default function ClockMount() { 
 
 
@@ -11,6 +9,7 @@ return (
         <div style={{height: '1px'}}></div>
         <ZoneClocks offset={10} position={{left: '86px', top: '15px'}} />
         <ZoneClocks offset={-5} position={{left: '261px', top: '-3px'}} />
+        <ZoneClocks offset={0} position={{left: '430px', top: '-15px'}} />
     </div>
 )
 }

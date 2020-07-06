@@ -23,7 +23,6 @@ export const useFetch = () => {
             setZone(result)
             setErrorMessage('Nothing found. Check spelling. Or if the problem persist, the resource may be down. Try again later.')
           }
-          
           setIsLoading(false)
         } catch (err) {
           setError(true)
@@ -33,7 +32,7 @@ export const useFetch = () => {
     }
     useEffect(() => {
         fetchZone()
-        }, [url]);
+    }, [url]);
     
     return { zone, isLoading, hasError, errorMessage, updateUrl }
 }
