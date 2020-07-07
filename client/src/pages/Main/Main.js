@@ -1,32 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { uuid } from 'uuidv4';
-import logo from '../../logo.svg';
+import React, { useState } from 'react';
 import { Container, Row, Col } from '../../components/Grid';
-import ClockMount from '../../components/ClockMount';
+import { ClockMount } from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
 import { WorldMap } from '../../components/WorldMap';
 import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
-import API from '../../utils/API' 
+import API from '../../utils/API';
+import { uuid } from 'uuidv4';
 
 export default function Main() {
 
   const [ city, setCity ] = useState({token: uuid()}),
    [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
-   [ clockOffset, setClockOffset ] = useState('12:00:00 AM'),
    [ properName, setProperName ] = useState('Sapling, Warminster, Pa'),
    [ predictions, setPredictions ] = useState({}),
-   [ url, setUrl ] = useState(''),
 
+   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch(),
   
-   forceUpdate = useForceUpdate(),
-   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
-   console.log("Main -> zone, isLoading, hasError, errorMessage,", zone, isLoading, hasError, errorMessage,)
- 
 
-  const onInputChange = async(e) => {
+  onInputChange = async(e) => {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
@@ -111,14 +105,14 @@ export default function Main() {
                     <Row >
                         <Col size='md-6'>
                             <h4 style={{marginTop:'-40px'}}><em><b>{properName}</b></em></h4>
-                            {isLoading ? <div></div> : <ListGroup data={zone} />}
+                            {isLoading ? <div/> : <ListGroup data={zone} />}
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">
                           <Row>
-                          {isLoading ? <div></div> : <AnalogClock offset={zone.rawOffset} />}
+                          {isLoading ? <div/> : <AnalogClock offset={zone.rawOffset} />}
                          </Row>
                          <Row classes="justify-content-center mt-2">
-                            {isLoading ? <div></div> : <DigitalClock offset={zone.rawOffset} />}
+                            {isLoading ? <div/> : <DigitalClock offset={zone.rawOffset} />}
                         </Row>
                         </Col>
                     </Row>

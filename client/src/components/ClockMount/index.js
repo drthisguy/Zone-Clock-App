@@ -1,7 +1,7 @@
 import React from 'react';
 import { ZoneClocks } from '../ZoneClocks';
 
-export default function ClockMount() { 
+export function ClockMount() { 
 
     /* zone clock offsets with an attempt to estimate Daylight Savings changes. 
     Doesn't seem worth the 5 API calls, when loading, for more accuracy.  */

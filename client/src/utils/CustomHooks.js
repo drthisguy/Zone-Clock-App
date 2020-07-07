@@ -16,11 +16,10 @@ export const useFetch = () => {
            result = await response.json();
           if (result.status === 'OK') {
             const saplingZone = FormatZone(result)
-            console.log("fetchZone -> saplingZone", saplingZone)
+            console.log("fetchZone -> saplingZone", result)
             setZone(saplingZone)
           } else {
             setError(true)
-            setZone(result)
             setErrorMessage('Nothing found. Check spelling. Or if the problem persist, the resource may be down. Try again later.')
           }
           setIsLoading(false)
