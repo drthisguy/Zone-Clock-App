@@ -1,4 +1,5 @@
 import React from 'react'
+import './style.css'
 
 export const SearchField = props => <input className="form-control form-rounded" {...props} />
 

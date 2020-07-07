@@ -6,3 +6,13 @@
   height: 200px;
   width: 400px;
 }
+
+input {
+  transition: all 0.40s ease-in-out !important;
+  outline: none !important
+}
+
+.form-control:focus {
+  box-shadow: 0 0 2px hsl(40, 97%, 54%) !important;
+  border-color: #fcaf17 !important
+}

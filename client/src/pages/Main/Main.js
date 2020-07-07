@@ -14,7 +14,7 @@ import API from '../../utils/API'
 export default function Main() {
 
   const [ city, setCity ] = useState({token: uuid()}),
-   [ coordinates, setCoordinates ] = useState({}),
+   [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
    [ clockOffset, setClockOffset ] = useState('12:00:00 AM'),
    [ properName, setProperName ] = useState('Sapling, Warminster, Pa'),
    [ predictions, setPredictions ] = useState({}),
