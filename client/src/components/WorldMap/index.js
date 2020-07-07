@@ -1,32 +1,46 @@
-import React from 'react'
-import API from '../../utils/API'
+import React, { useEffect } from 'react';
+import API from '../../utils/API';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-export function WorldMap() {
 
-    const map = document.createElement('div');
-    map.classList.add('map');
+const googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
-    const loadMaps = async() => {
-        const script = document.createElement("script");
-        script.setAttribute("type", "text/javascript");
-        script.src = await API.getMapSrcUrl();
-            
-        document.getElementsByTagName("head")[0].appendChild(script);
+export function WorldMap({ coords }) {
+
+    useEffect(() => {
+        loadMap()
+    }, [coords])
+
+    const loadMap = () => {
+        loadScript(`https://maps.googleapis.com/maps/api/js?callback=initMap&key=${googleAPIKey}`)
+        window.initMap = initMap;
+    },
+
+    initMap = () => {
+        const display = new window.google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: coords,
+          disableDefaultUI: true
+        }),
+        marker = new window.google.maps.Marker({ position: coords, map: display });
+    },
+
+    loadScript = (url) => {
+        let index = window.document.getElementsByTagName('script')[0]
+
+        let script = window.document.createElement('script');
+            script.src = url
+            script.async = true
+            script.defer = true
+
+        index.parentNode.insertBefore(script, index);
     }
 
-    // initMap = (coords) => {
-    //     var display = new google.maps.Map(document.getElementById("map"), {
-    //       zoom: 10,
-    //       center: coords,
-    //       disableDefaultUI: true
-    //     }),
-    //     marker = new google.maps.Marker({ position: coords, map: display });
-    // };
-    loadMaps();
-
     return (
-        <div>
-            
-        </div>
+        <main>
+            <div id='map' >
+
+            </div>
+        </main>
     )
 }

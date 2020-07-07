@@ -25,3 +25,4 @@ yarn-error.log*
 /.env
 client/.env
 client/node_modules
+client/.evn

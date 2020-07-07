@@ -126,7 +126,7 @@ export default function Main() {
                 <div className="jumbotron">
                   <Row >
                     <Col size='md-4'>
-                      <WorldMap />
+                      <WorldMap coords={coordinates} />
                     </Col>
                   </Row>
                 </div>

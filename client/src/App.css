@@ -23,3 +23,14 @@
   background-position: center;
   background-image: url("../src/assets/img/DialA.png")
 }
+
+#map {
+  height: 200px;
+  width: 300px;
+}
+/* Optional: Makes the sample page fill the window. */
+/* html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+} */
