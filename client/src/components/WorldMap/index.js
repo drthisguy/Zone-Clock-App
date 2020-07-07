@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
 import API from '../../utils/API';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-
-
-const googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
 export function WorldMap({ coords }) {
 
@@ -12,8 +8,10 @@ export function WorldMap({ coords }) {
     }, [coords])
 
     const loadMap = () => {
-        loadScript(`https://maps.googleapis.com/maps/api/js?callback=initMap&key=${googleAPIKey}`)
+        const url = API.getMapSrcUrl()
         window.initMap = initMap;
+        
+        loadScript(url)
     },
 
     initMap = () => {
@@ -26,9 +24,9 @@ export function WorldMap({ coords }) {
     },
 
     loadScript = (url) => {
-        let index = window.document.getElementsByTagName('script')[0]
+        const index = window.document.getElementsByTagName('script')[0]
 
-        let script = window.document.createElement('script');
+        const script = window.document.createElement('script');
             script.src = url
             script.async = true
             script.defer = true
@@ -38,9 +36,7 @@ export function WorldMap({ coords }) {
 
     return (
         <main>
-            <div id='map' >
-
-            </div>
+            <div id='map' />
         </main>
     )
 }
