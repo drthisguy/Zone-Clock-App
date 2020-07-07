@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import API from '../../utils/API';
+import mapStyle from './mapStyle.json'
 
 export function WorldMap({ coords }) {
 
@@ -16,9 +17,10 @@ export function WorldMap({ coords }) {
 
     initMap = () => {
         const display = new window.google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
+          zoom: 1,
           center: coords,
-          disableDefaultUI: true
+          disableDefaultUI: true,
+          styles: mapStyle
         }),
         marker = new window.google.maps.Marker({ position: coords, map: display });
     },

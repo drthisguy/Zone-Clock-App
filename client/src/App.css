@@ -2,35 +2,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
 
 
-.sydney-mount {
-  width: 230;
-  height: 230;
-  text-align: center;    
-  display: flex;
-  flex-direction: column;
-  align-items: center
-}
-
-.sydney-clock {
-  min-width: 100%;
-  min-height: 100%;
-  position: relative;
-  list-style: none;
-  left: 85px;
-  top: 15px;
-  background-size: 230;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url("../src/assets/img/DialA.png")
-}
-
 #map {
   height: 200px;
-  width: 300px;
+  width: 400px;
 }
-/* Optional: Makes the sample page fill the window. */
-/* html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-} */

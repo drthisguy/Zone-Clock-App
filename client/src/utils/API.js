@@ -14,5 +14,5 @@ export default {
         return await response.json();     
     },
 
-    getMapSrcUrl: async () => `https://maps.googleapis.com/maps/api/js?callback=initMap&key=${googleAPIKey}`
+    getMapSrcUrl: () => `https://maps.googleapis.com/maps/api/js?callback=initMap&key=${googleAPIKey}`
 }
