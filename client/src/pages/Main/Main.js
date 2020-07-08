@@ -118,12 +118,13 @@ export default function Main() {
                         </Col>
                     </Row>
                 </div>
-                <div style={{justifyContent: 'center'}} className="jumbotron">
+                <div className="jumbotron">
                   <Row >
                   <Col size='md-12'>
                       <WorldMap coords={coordinates} />
                   </Col>
                   </Row>
+                  <hr className='mt-4' />
                   <Row >
                     <Col size='md-6'>
                     {isLoading ? <div/> : <DatePicker dst={zone.dstStart} right={{float: 'right'}} />}
