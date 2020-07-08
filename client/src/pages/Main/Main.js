@@ -126,7 +126,7 @@ export default function Main() {
                   </Row>
                   <Row >
                     <Col size='md-6'>
-                      <DatePicker />
+                    {isLoading ? <div/> : <DatePicker dst={zone.dstStart} />}
                     </Col>
                     
                   </Row>
