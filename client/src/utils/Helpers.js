@@ -104,5 +104,22 @@ export const getCountryGroup = code => {
         default:
             return 'none';
     }
+}
 
+export const stringTime = date => {
+    let localHours = date.getHours() - 1, //get and correct the hour.
+     localMinutes = date.getMinutes(),
+     localSeconds = date.getSeconds();
+
+    localMinutes = (localMinutes < 10 ? '0':'')+ localMinutes;
+    localSeconds = (localSeconds < 10 ? '0':'')+ localSeconds;
+
+    const timeOfDay = localHours < 12 ? 'AM' : 'PM';
+    localHours = localHours == -1? localHours +24 : localHours;
+    localHours = localHours > 12 ? localHours - 12 : localHours;
+    localHours = localHours == 0 ? 12 : localHours;
+
+    const stringifyedTime = localHours + ":" + localMinutes + ":" + localSeconds + " " + timeOfDay;
+
+    return stringifyedTime;
 }
