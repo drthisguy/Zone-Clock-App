@@ -118,7 +118,7 @@ export default function Main() {
                         </Col>
                     </Row>
                 </div>
-                <div className="jumbotron">
+                <div style={{justifyContent: 'center'}} className="jumbotron">
                   <Row >
                   <Col size='md-12'>
                       <WorldMap coords={coordinates} />
@@ -126,9 +126,11 @@ export default function Main() {
                   </Row>
                   <Row >
                     <Col size='md-6'>
-                    {isLoading ? <div/> : <DatePicker dst={zone.dstStart} />}
+                    {isLoading ? <div/> : <DatePicker dst={zone.dstStart} right={{float: 'right'}} />}
                     </Col>
-                    
+                    <Col size='md-6'>
+                    {isLoading ? <div/> : <DatePicker dst={zone.dstEnd} right={{}} />}
+                    </Col>
                   </Row>
                 </div>
           </Col>
