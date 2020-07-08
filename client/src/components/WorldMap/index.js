@@ -17,7 +17,7 @@ export function WorldMap({ coords }) {
 
     initMap = () => {
         const display = new window.google.maps.Map(document.getElementById('map'), {
-          zoom: 1,
+          zoom: 1.75,
           center: coords,
           disableDefaultUI: true,
           styles: mapStyle

@@ -5,8 +5,9 @@ import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
+import { DatePicker } from '../../components/DatePicker';
 import { WorldMap } from '../../components/WorldMap';
-import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
+import { useFetch } from '../../utils/CustomHooks';
 import API from '../../utils/API';
 import { uuid } from 'uuidv4';
 
@@ -119,9 +120,15 @@ export default function Main() {
                 </div>
                 <div className="jumbotron">
                   <Row >
-                    <Col size='md-4'>
+                  <Col size='md-12'>
                       <WorldMap coords={coordinates} />
+                  </Col>
+                  </Row>
+                  <Row >
+                    <Col size='md-6'>
+                      <DatePicker />
                     </Col>
+                    
                   </Row>
                 </div>
           </Col>
