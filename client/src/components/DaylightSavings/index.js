@@ -1,15 +1,23 @@
-import React, { Fragment } from 'react'
-import { Row, Col } from '../Grid'
-import { DatePicker } from '../DatePicker'
-import { getCountryGroup } from '../../utils/Helpers'
+import React, { Fragment } from 'react';
+import { Row, Col } from '../Grid';
+import { getCountryGroup } from '../../utils/Helpers';
+import { stringTime } from '../../utils/Helpers';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 export function DaylightSavings({ name, dstStart, dstEnd, code }) {
     
-    let message,
-      group = getCountryGroup(code);
+    let message;
+     const group = getCountryGroup(code),
+      startMods = {
+        highlighted: dstStart
+      },
+      endMods = {
+        highlighted: dstEnd
+      };
     
     if (group === 'none') {
-    message = <p>{<em>{name}</em>} has no preset daylight savings schedule.  Select the <b><em>"Day of Week in Month"</em></b> method. And configure the dates as follows:</p>
+         message = <p>{<em>{name}</em>} has no preset daylight savings schedule.  Select the <b><em>"Day of Week in Month"</em></b> method. And configure the dates as follows:</p>
     }
     else {
         message = <p>Daylight Savings for {<em>{name}</em>} is scheduled as follows... Choose <b><em>{group}</em></b> for this clock.</p>
@@ -36,14 +44,66 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                     {message}
                 </Row>
                 <Row >
-                    <Col size='md-6'>
-                        <DatePicker dst={dstStart} right={{float: 'right'}} />
+                    <Col size='md-6' classes='text-center' >
+                        <div style={window.innerWidth > 767 ? {float:'right'} : {}}>
+                            <style>{birthdayStyle}</style>
+                            <DayPicker 
+                            month={new Date(dstStart.getFullYear(), dstStart.getMonth())} 
+                            months={beginMonths} 
+                            modifiers={startMods} 
+                            />
+                            {<p style={window.innerWidth > 767 ? {textAlign:'center'} : {}} >{dstStart.toDateString()} at {stringTime(dstStart)}</p>}
+                        </div>
                     </Col>
                     <Col size='md-6'>
-                        <DatePicker dst={dstEnd} right={{}} />
+                        
+                        <div>
+                            <style>{birthdayStyle}</style>
+                            <DayPicker 
+                            month={new Date(dstEnd.getFullYear(), dstEnd.getMonth())}
+                            months={endMonths} 
+                            modifiers={endMods} 
+                            />
+                            <div style={window.innerWidth > 992 ? {marginLeft: '40px'} : {}}>
+                            {<p>{dstEnd.toDateString()} at {stringTime(dstEnd)}</p>}
+                            </div>
+                        </div>
                     </Col>
                 </Row>
             </Fragment>
         )
     }
 }
+
+const birthdayStyle = `.DayPicker-Day--highlighted {
+    background-color: #fcaf17;
+    color: white;
+  }`,
+  beginMonths = [
+    'Begins January',
+    'Begins February',
+    'Begins March',
+    'Begins April',
+    'Begins May',
+    'Begins June',
+    'Begins July',
+    'Begins August',
+    'Begins September',
+    'Begins October',
+    'Begins November',
+    'Begins December',
+  ],
+  endMonths = [
+    'Ends January',
+    'Ends February',
+    'Ends March',
+    'Ends April',
+    'Ends May',
+    'Ends June',
+    'Ends July',
+    'Ends August',
+    'Ends September',
+    'Ends October',
+    'Ends November',
+    'Ends December',
+  ];
