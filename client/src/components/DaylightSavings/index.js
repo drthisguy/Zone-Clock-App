@@ -65,7 +65,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                             modifiers={endMods} 
                             />
                             <div style={window.innerWidth > 992 ? {marginLeft: '40px'} : {}}>
-                            {<p>{dstEnd.toDateString()} at {stringTime(dstEnd)}</p>}
+                            {<p>{dstEnd.toDateString()} at {dstEnd.toLocaleTimeString()}</p>}
                             </div>
                         </div>
                     </Col>
