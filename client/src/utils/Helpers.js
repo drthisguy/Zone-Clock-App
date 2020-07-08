@@ -1,3 +1,4 @@
+//returns local time to the many clocks this app uses.
 export const getLocalTime = offset => {
 
     const userTime = new Date(),
@@ -14,6 +15,7 @@ export const getLocalTime = offset => {
     return { localHours, localMinutes, localSeconds }
 }
 
+//format timezoneDB data for Sapling clock programming.
 export const FormatZone = zone => {
 
     let { dst, gmtOffset, zoneStart, zoneEnd } = zone;
@@ -55,12 +57,14 @@ export const FormatZone = zone => {
     return { zoneName, offset, bias, dst, dstStart, dstEnd, rawOffset, countryName, countryCode };
 }
 
+
+
 const northAmerica = ['US','BM','MX','CA','TC'],
-europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
-eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
+    europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
+    eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
 
 export const getCountryGroup = code => {
-    
+
     if (northAmerica.includes(code)) {
         code = 'NA'
     }
@@ -70,6 +74,7 @@ export const getCountryGroup = code => {
     if (eastEurope.includes(code)) {
         code = 'EE'
     }
+
     switch (code) {
         case 'NA':
             return 'North American Group';

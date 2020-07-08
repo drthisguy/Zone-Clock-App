@@ -16,6 +16,7 @@ export default function Main() {
   const [ city, setCity ] = useState({token: uuid()}),
    [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
    [ properName, setProperName ] = useState('Sapling, Warminster, Pa'),
+   [ shortName, setShortName ] = useState('Sapling'),
    [ predictions, setPredictions ] = useState({}),
 
    { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch(),
@@ -41,8 +42,11 @@ export default function Main() {
     e.preventDefault();
     e.target.reset();
 
+    setShortName(capitalizeWord(city.name))
     getCoordinates(city.name)
   },
+
+  capitalizeWord = word => word.replace(/\b[a-z]/g, char => char.toUpperCase()),
 
   getCoordinates = async city => {
     try{
@@ -76,6 +80,7 @@ export default function Main() {
   }, 
 
   selectPredictions = value => {
+    setShortName(value)
     setPredictions({ suggestions: [], text: '' })
     getCoordinates(value)
   }
@@ -127,7 +132,7 @@ export default function Main() {
                   <hr className='mt-4' />
                   {isLoading ? <div/> : 
                     <DaylightSavings 
-                    name={properName} 
+                    name={shortName} 
                     dstStart={zone.dstStart} 
                     dstEnd={zone.dstEnd}
                     code={zone.countryCode}

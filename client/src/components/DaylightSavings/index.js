@@ -9,12 +9,11 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
       group = getCountryGroup(code);
     
     if (group === 'none') {
-        message = <p>{`${name} has no preset daylight savings group.  Select the`} <b><em>"Day of Week in Month"</em></b> method. And configure the dates as follows:</p>
+    message = <p>{<em>{name}</em>} has no preset daylight savings schedule.  Select the <b><em>"Day of Week in Month"</em></b> method. And configure the dates as follows:</p>
     }
     else {
-        message = <p>{`Daylight Savings for ${name} is scheduled as follows... Choose`} <b><em>{group}</em></b> for this clock.</p>
+        message = <p>Daylight Savings for {<em>{name}</em>} is scheduled as follows... Choose <b><em>{group}</em></b> for this clock.</p>
     }
-
 
     if (dstEnd === 'none') {
         return (
