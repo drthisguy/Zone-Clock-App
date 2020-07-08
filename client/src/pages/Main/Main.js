@@ -125,7 +125,13 @@ export default function Main() {
                   </Col>
                   </Row>
                   <hr className='mt-4' />
-                  {isLoading ? <div/> : <DaylightSavings name={properName} dstStart={zone.dstStart} dstEnd={zone.dstEnd} />}
+                  {isLoading ? <div/> : 
+                    <DaylightSavings 
+                    name={properName} 
+                    dstStart={zone.dstStart} 
+                    dstEnd={zone.dstEnd}
+                    code={zone.countryCode}
+                     />}
                 </div>
           </Col>
         </Row>

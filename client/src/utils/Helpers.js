@@ -50,7 +50,54 @@ export const FormatZone = zone => {
      dstEnd = dstEnd.getYear() === 69 || dstEnd.getYear() === 70 ? 'none' : dstEnd;
 
      //other data used
-     const { zoneName } = zone;
+     const { zoneName, countryCode, countryName } = zone;
     
-    return { zoneName, offset, bias, dst, dstStart, dstEnd, rawOffset };
+    return { zoneName, offset, bias, dst, dstStart, dstEnd, rawOffset, countryName, countryCode };
+}
+
+const northAmerica = ['US','BM','MX','CA','TC'],
+europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
+eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
+
+export const getCountryGroup = code => {
+    
+    if (northAmerica.includes(code)) {
+        code = 'NA'
+    }
+    if (europe.includes(code)) {
+        code = 'EU'
+    }
+    if (eastEurope.includes(code)) {
+        code = 'EE'
+    }
+    switch (code) {
+        case 'NA':
+            return 'North American Group';
+        case 'EU':
+            return 'European Group';
+        case 'EE':
+            return 'Eastern European Group';
+        case 'GB':
+            return 'United Kingdom';
+        case 'IE':
+            return 'Ireland';
+        case 'BR':
+            return 'Brazil';
+        case 'JO':
+            return 'Jordan';
+        case 'CL':
+            return 'Chile';
+        case 'LB':
+            return 'Lebanon';
+        case 'PY':
+            return 'Paraguay';
+        case 'PT':
+            return 'Portugal';
+        case 'SY':
+            return 'Syria';
+    
+        default:
+            return 'none';
+    }
+
 }
