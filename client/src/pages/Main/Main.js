@@ -5,11 +5,12 @@ import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
-import { DatePicker } from '../../components/DatePicker';
+// import { DaylightSavings } from '../../components/DaylightSavings';
 import { WorldMap } from '../../components/WorldMap';
 import { useFetch } from '../../utils/CustomHooks';
 import API from '../../utils/API';
 import { uuid } from 'uuidv4';
+import { DaylightSavings } from '../../components/DaylightSavings/DaylightSavings';
 
 export default function Main() {
 
@@ -125,14 +126,7 @@ export default function Main() {
                   </Col>
                   </Row>
                   <hr className='mt-4' />
-                  <Row >
-                    <Col size='md-6'>
-                    {isLoading ? <div/> : <DatePicker dst={zone.dstStart} right={{float: 'right'}} />}
-                    </Col>
-                    <Col size='md-6'>
-                    {isLoading ? <div/> : <DatePicker dst={zone.dstEnd} right={{}} />}
-                    </Col>
-                  </Row>
+                  {isLoading ? <div/> : <DaylightSavings dstStart={zone.dstStart} dstEnd={zone.dstEnd} />}
                 </div>
           </Col>
         </Row>
