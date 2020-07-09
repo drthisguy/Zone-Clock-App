@@ -6,15 +6,13 @@ export  function HistoryList({ data }) {
     const listCities = cities => {
         return (
             cities.map( city => 
-                <li className='historic-city'
-                    style={itemStyle} >
+                <li style={itemStyle} className='historic-city' >
                     {city.name}
                     <FourDigitClock offset={city.offset} />
                 </li>
             )
         )
     }
-
 
     return (
         <div>
@@ -27,6 +25,7 @@ export  function HistoryList({ data }) {
         </div>
     )
 }
+
 const itemStyle = {
     alignItems: 'center',
     border: 'none',
