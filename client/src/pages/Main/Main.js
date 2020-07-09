@@ -133,6 +133,9 @@ export default function Main() {
               </div>
                 <div style={{height:"50px"}} />
             </form>
+            <div style={historyStyle}>
+              <h5><i className="fas fa-history"></i><em style={{float:'right'}}>History</em></h5>
+            </div>
             <HistoryList data={history.map( x => new Object({name: x.names.shortName, offset: x.rawOffset}))}
              />
           </Col>
@@ -178,4 +181,9 @@ const eyeGlass = {
   position: 'absolute',
   top: '10px',
   left: '25px',
+}, 
+
+historyStyle = {
+  margin: '25px 0px 25px 0px',
+  borderBottom: '1px solid',
 }
