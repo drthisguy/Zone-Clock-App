@@ -25,7 +25,7 @@ export default function Main() {
    useEffect(() => {
      const data = JSON.parse(localStorage.getItem('history'))
      if (data) {
-      setHistory(data);
+      setHistory(data)
      }
    }, [])
 
@@ -60,14 +60,20 @@ export default function Main() {
     localStorage.setItem('history', JSON.stringify(history))
   },
 
-  //removes any accent/diacritic markings form text input
-  normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+  updateLocalStorage = () => {
+    zone.coords = coordinates;
+    zone.names = names; 
+    if (history.some( x => x.names.longName === zone.names.longName)) {
+      return
+    }
+    setHistory([...history, zone ])
+  },
 
   getCoordinates = async city => {
     try{
     const { results } = await API.googleThis(city),
       [ place ] = results,
-      longName = place.formatted_address,
+      longName = place.formatted_address.replace(/[0-9]/g, ''),  //remove any numbering that's common here with google.
       shortName = place.address_components[0].short_name,
       lat = place.geometry.location.lat,
       lng = place.geometry.location.lng,
@@ -75,10 +81,8 @@ export default function Main() {
       
     setNames({ longName, shortName })
     setCoordinates({ lat, lng })
-    zone.names = names; zone.coords = coordinates
     setCity({name: '', token: uuid()})
-    console.log(zone)
-    setHistory([...history, zone ])
+    updateLocalStorage()
     updateUrl(zoneURL)
     } catch(err) {console.log(err)}
   },
@@ -101,10 +105,12 @@ export default function Main() {
 
   selectPredictions = str => {
     const value = normalizeString(str);
-    setShortName(value)
     setPredictions({ suggestions: [], text: '' })
     getCoordinates(value)
-  }
+  },
+
+  //removes any accent/diacritic markings form autocompleted, text input.
+  normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     return (  
         <Container >
