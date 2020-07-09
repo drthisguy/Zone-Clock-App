@@ -75,7 +75,7 @@ export default function Main() {
     const { results } = await API.googleThis(city),
       [ place ] = results,
       longName = place.formatted_address.replace(/[0-9]/g, ''),  //remove any numbering that's common here with google.
-      shortName = place.address_components[0].short_name,
+      shortName = place.address_components[0].long_name,
       lat = place.geometry.location.lat,
       lng = place.geometry.location.lng,
       zoneURL = `/api/timezone/${lat}/${lng}`;
@@ -140,7 +140,7 @@ export default function Main() {
                 <div className="jumbotron">
                     <Row >
                         <Col size='md-6'>
-                            <h4 style={{marginTop:'-40px'}}><em><b>{names.longName}</b></em></h4>
+                            <h4 style={{marginTop:'-40px'}}><center><em><b>{names.longName}</b></em></center></h4>
                             {isLoading ? <div/> : <ListGroup data={zone} />}
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">

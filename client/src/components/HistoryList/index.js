@@ -6,9 +6,9 @@ export  function HistoryList({ data }) {
     const listCities = cities => {
         return (
             cities.map( city => 
-                <li className="list-group-item d-flex justify-content-between align-items-center">
+                <li style={itemStyle} >
                     {city.name}
-                    <span className=''><FourDigitClock offset={city.offset} /></span>
+                    <FourDigitClock offset={city.offset} />
                 </li>
             )
         )
@@ -17,7 +17,7 @@ export  function HistoryList({ data }) {
 
     return (
         <div>
-            <ul class="list-group">
+            <ul style={listStyle} >
                 <Fragment>
                      {listCities(data)}
                 </Fragment>
@@ -25,4 +25,16 @@ export  function HistoryList({ data }) {
             
         </div>
     )
+}
+const itemStyle = {
+    alignItems: 'center',
+    border: 'none',
+    borderBottom: '1px solid',
+    justifyContent: 'space-between',
+    padding: '12px 20px',
+    display: 'flex'
+},
+listStyle = {
+    paddingLeft: '0px',
+    flexDirection: 'column'
 }
