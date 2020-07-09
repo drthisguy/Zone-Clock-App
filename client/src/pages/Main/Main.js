@@ -19,7 +19,6 @@ export default function Main() {
    [ shortName, setShortName ] = useState('Sapling'),
    [ predictions, setPredictions ] = useState({}),
    [ history, setHistory ] = useState([]),
-   [ storage, setStorage ] = useState([]),
 
    { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
   
@@ -32,7 +31,7 @@ export default function Main() {
 
    useEffect(() => { 
      saveHistory()
-   }, [history])
+   })
 
   const onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -63,6 +62,8 @@ export default function Main() {
   },
 
   capitalizeWord = word => word.replace(/\b[a-z]/g, char => char.toUpperCase()),
+
+  normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
 
   getCoordinates = async city => {
     try{
@@ -97,9 +98,10 @@ export default function Main() {
   }, 
 
   selectPredictions = value => {
-    setShortName(value)
+    zone.shortName = normalizeString(value);
+    setShortName(zone.shortName)
     setPredictions({ suggestions: [], text: '' })
-    getCoordinates(value)
+    getCoordinates(zone.shortName)
   }
 
     return (  
