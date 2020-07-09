@@ -1,12 +1,16 @@
 import React, { Fragment } from 'react'
 import { FourDigitClock } from '../FourDigitClock'
 
-export  function HistoryList({ data }) {
+export  function HistoryList({ data, loadCity }) {
 
     const listCities = cities => {
         return (
-            cities.map( city => 
-                <li style={itemStyle} className='historic-city' >
+            cities.map( (city, i) => 
+                <li className='historic-city'
+                 key={i}
+                 style={itemStyle}
+                 onClick={loadCity.bind(this, i)}
+                 >
                     {city.name}
                     <FourDigitClock offset={city.offset} />
                 </li>
@@ -21,7 +25,6 @@ export  function HistoryList({ data }) {
                      {listCities(data)}
                 </Fragment>
             </ul>
-            
         </div>
     )
 }

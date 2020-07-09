@@ -111,7 +111,14 @@ export default function Main() {
   },
 
   //removes any accent/diacritic markings form autocompleted, text input.
-  normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+
+  loadCityFromStorage = index => {
+    const { coords } = history[index],
+      zoneUrl = `/api/timezone/${coords.lat}/${coords.lng}`;
+    console.log(coords)
+    updateUrl(zoneUrl);
+  }
 
     return (  
         <Container >
@@ -136,7 +143,9 @@ export default function Main() {
             <div style={historyStyle}>
               <h5><i className="fas fa-history"></i><em style={{float:'right'}}>History</em></h5>
             </div>
-            <HistoryList data={history.map( x => new Object({name: x.names.shortName, offset: x.rawOffset}))}
+            <HistoryList 
+            data={history.map( x => new Object({name: x.names.shortName, offset: x.rawOffset}))}
+            loadCity={loadCityFromStorage}
              />
           </Col>
           <Col size="md-9" >
