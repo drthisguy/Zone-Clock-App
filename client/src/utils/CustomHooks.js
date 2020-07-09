@@ -33,7 +33,7 @@ export const useFetch = () => {
         fetchZone()
     }, [url]);
     
-    return { zone, isLoading, hasError, errorMessage, updateUrl }
+    return { zone, isLoading, hasError, errorMessage, updateUrl, setZone }
 }
 
 //used to track previous states for comparison purposes. ex use:  previousItem = usePrevious(itemInput.property),

@@ -15,12 +15,12 @@ export default function Main() {
 
   const [ city, setCity ] = useState({token: uuid()}),
    [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
-   [ properName, setProperName ] = useState('Sapling, Warminster, Pa'),
+   [ names, setNames ] = useState({longName:'Sapling, Warminster, Pa', shortName:'Sapling'}),
    [ shortName, setShortName ] = useState('Sapling'),
    [ predictions, setPredictions ] = useState({}),
    [ history, setHistory ] = useState([]),
 
-   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
+   { zone, isLoading, hasError, errorMessage, updateUrl, setZone } = useFetch();
   
    useEffect(() => {
      const data = JSON.parse(localStorage.getItem('history'))
@@ -53,7 +53,6 @@ export default function Main() {
     e.preventDefault();
     e.target.reset();
 
-    setShortName(capitalizeWord(city.name))
     getCoordinates(city.name)
   },
 
@@ -61,21 +60,24 @@ export default function Main() {
     localStorage.setItem('history', JSON.stringify(history))
   },
 
-  capitalizeWord = word => word.replace(/\b[a-z]/g, char => char.toUpperCase()),
-
+  //removes any accent/diacritic markings form text input
   normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
 
   getCoordinates = async city => {
     try{
     const { results } = await API.googleThis(city),
       [ place ] = results,
+      longName = place.formatted_address,
+      shortName = place.address_components[0].short_name,
       lat = place.geometry.location.lat,
       lng = place.geometry.location.lng,
       zoneURL = `/api/timezone/${lat}/${lng}`;
       
-    setProperName(place.formatted_address)
+    setNames({ longName, shortName })
     setCoordinates({ lat, lng })
+    zone.names = names; zone.coords = coordinates
     setCity({name: '', token: uuid()})
+    console.log(zone)
     setHistory([...history, zone ])
     updateUrl(zoneURL)
     } catch(err) {console.log(err)}
@@ -97,11 +99,11 @@ export default function Main() {
     )
   }, 
 
-  selectPredictions = value => {
-    zone.shortName = normalizeString(value);
-    setShortName(zone.shortName)
+  selectPredictions = str => {
+    const value = normalizeString(str);
+    setShortName(value)
     setPredictions({ suggestions: [], text: '' })
-    getCoordinates(zone.shortName)
+    getCoordinates(value)
   }
 
     return (  
@@ -129,7 +131,7 @@ export default function Main() {
                 <div className="jumbotron">
                     <Row >
                         <Col size='md-6'>
-                            <h4 style={{marginTop:'-40px'}}><em><b>{properName}</b></em></h4>
+                            <h4 style={{marginTop:'-40px'}}><em><b>{names.longName}</b></em></h4>
                             {isLoading ? <div/> : <ListGroup data={zone} />}
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">
@@ -151,7 +153,7 @@ export default function Main() {
                   <hr className='mt-4' />
                   {isLoading ? <div/> : 
                     <DaylightSavings 
-                    name={shortName} 
+                    name={names.shortName} 
                     dstStart={zone.dstStart} 
                     dstEnd={zone.dstEnd}
                     code={zone.countryCode}
