@@ -52,7 +52,9 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                             months={beginMonths} 
                             modifiers={startMods} 
                             />
-                            {<p style={window.innerWidth > 767 ? {textAlign:'center'} : {}} >{dstStart.toDateString()} at {stringTime(dstStart)}</p>}
+                            <div style={window.innerWidth > 767 ? {textAlign:'center'} : {}} >
+                               {dstStart.toDateString()} at {stringTime(dstStart)}
+                            </div>
                         </div>
                     </Col>
                     <Col size='md-6'>
@@ -65,7 +67,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                             modifiers={endMods} 
                             />
                             <div style={window.innerWidth > 992 ? {marginLeft: '40px'} : {}}>
-                            {<p>{dstEnd.toDateString()} at {dstEnd.toLocaleTimeString()}</p>}
+                                {dstEnd.toDateString()} at {dstEnd.toLocaleTimeString()}
                             </div>
                         </div>
                     </Col>

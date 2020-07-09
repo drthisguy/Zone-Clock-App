@@ -28,17 +28,17 @@ export function AnalogClock({ offset }) {
         <div style={mount} >
             <ul style={analog}>
                 <li>
-                    <img src={require('../../assets/img/hour-hand.png')} 
+                    <img src={require('../../assets/img/hour-hand-ds.png')} 
                     style={{...hrHand, transform: `rotate(${hourHand}deg)`}} 
                     />
                 </li>
                 <li>
-                    <img src={require('../../assets/img/minute-hand.png')} 
+                    <img src={require('../../assets/img/minutte-hand_ds.png')} 
                     style={{...minHand, transform: `rotate(${minuteHand}deg)`}} 
                     />
                 </li> 
                 <li>
-                    <img src={require('../../assets/img/second-hand.png')} 
+                    <img src={require('../../assets/img/second-hand_ds.png')} 
                     style={{...secHand, transform: `rotate(${secondHand}deg)`}} 
                     />
                 </li>
