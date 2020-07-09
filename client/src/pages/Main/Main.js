@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { uuid } from 'uuidv4';
 import { Container, Row, Col } from '../../components/Grid';
 import { ClockMount } from '../../components/ClockMount';
@@ -18,11 +18,23 @@ export default function Main() {
    [ properName, setProperName ] = useState('Sapling, Warminster, Pa'),
    [ shortName, setShortName ] = useState('Sapling'),
    [ predictions, setPredictions ] = useState({}),
+   [ history, setHistory ] = useState([]),
+   [ storage, setStorage ] = useState([]),
 
-   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch(),
+   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
   
+   useEffect(() => {
+     const data = JSON.parse(localStorage.getItem('history'))
+     if (data) {
+      setHistory(data);
+     }
+   }, [])
 
-  onInputChange = async(e) => {
+   useEffect(() => { 
+     saveHistory()
+   }, [history])
+
+  const onInputChange = async(e) => {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
@@ -46,6 +58,10 @@ export default function Main() {
     getCoordinates(city.name)
   },
 
+  saveHistory = () => {
+    localStorage.setItem('history', JSON.stringify(history))
+  },
+
   capitalizeWord = word => word.replace(/\b[a-z]/g, char => char.toUpperCase()),
 
   getCoordinates = async city => {
@@ -59,6 +75,7 @@ export default function Main() {
     setProperName(place.formatted_address)
     setCoordinates({ lat, lng })
     setCity({name: '', token: uuid()})
+    setHistory([...history, zone ])
     updateUrl(zoneURL)
     } catch(err) {console.log(err)}
   },
