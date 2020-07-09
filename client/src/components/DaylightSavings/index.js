@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
+import { getCountryGroup, stringTime } from '../../utils/Helpers';
 import { Row, Col } from '../Grid';
-import { getCountryGroup } from '../../utils/Helpers';
-import { stringTime } from '../../utils/Helpers';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 export function DaylightSavings({ name, dstStart, dstEnd, code }) {
     
     let message;
-     const group = getCountryGroup(code),
+    const group = getCountryGroup(code),
       startMods = {
         highlighted: dstStart
       },
