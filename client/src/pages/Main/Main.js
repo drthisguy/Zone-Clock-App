@@ -4,6 +4,7 @@ import { Container, Row, Col } from '../../components/Grid';
 import { ClockMount } from '../../components/ClockMount';
 import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
+import { HistoryList } from '../../components/HistoryList';
 import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
 import { DaylightSavings } from '../../components/DaylightSavings';
@@ -16,11 +17,10 @@ export default function Main() {
   const [ city, setCity ] = useState({token: uuid()}),
    [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
    [ names, setNames ] = useState({longName:'Sapling, Warminster, Pa', shortName:'Sapling'}),
-   [ shortName, setShortName ] = useState('Sapling'),
    [ predictions, setPredictions ] = useState({}),
    [ history, setHistory ] = useState([]),
 
-   { zone, isLoading, hasError, errorMessage, updateUrl, setZone } = useFetch();
+   { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
   
    useEffect(() => {
      const data = JSON.parse(localStorage.getItem('history'))
@@ -31,7 +31,7 @@ export default function Main() {
 
    useEffect(() => { 
      saveHistory()
-   })
+   }, [history])
 
   const onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -63,6 +63,7 @@ export default function Main() {
   updateLocalStorage = () => {
     zone.coords = coordinates;
     zone.names = names; 
+
     if (history.some( x => x.names.longName === zone.names.longName)) {
       return
     }
@@ -132,6 +133,7 @@ export default function Main() {
               </div>
                 <div style={{height:"50px"}} />
             </form>
+            <HistoryList data={history} />
           </Col>
           <Col size="md-9" >
                 <div className="jumbotron">
