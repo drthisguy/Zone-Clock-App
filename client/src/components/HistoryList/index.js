@@ -7,8 +7,8 @@ export  function HistoryList({ data }) {
         return (
             cities.map( city => 
                 <li className="list-group-item d-flex justify-content-between align-items-center">
-                    {city.names.shortName}
-                    <span className=''><FourDigitClock offset={city.rawOffset} /></span>
+                    {city.name}
+                    <span className=''><FourDigitClock offset={city.offset} /></span>
                 </li>
             )
         )

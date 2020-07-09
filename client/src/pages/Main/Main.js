@@ -133,7 +133,8 @@ export default function Main() {
               </div>
                 <div style={{height:"50px"}} />
             </form>
-            <HistoryList data={history} />
+            <HistoryList data={history.map( x => new Object({name: x.names.shortName, offset: x.rawOffset}))}
+             />
           </Col>
           <Col size="md-9" >
                 <div className="jumbotron">

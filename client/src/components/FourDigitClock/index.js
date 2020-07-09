@@ -3,7 +3,7 @@ import { getLocalTime } from '../../utils/Helpers';
 
 export function FourDigitClock({ offset }) {
 
-    const [ timeString, setTimeString ] = useState('12:00:00 AM');
+    const [ timeString, setTimeString ] = useState('12:00am');
 
     useEffect(() => {
         const timer = setInterval(localClock, 1000)  
@@ -21,7 +21,7 @@ export function FourDigitClock({ offset }) {
             localHours = localHours > 12  ? localHours - 12 : localHours;
             localHours = localHours == 0  ? 12 : localHours;
 
-        const localTimeString = `${localHours}:${localMinutes}:${timeOfDay}`;
+        const localTimeString = `${localHours}:${localMinutes}${timeOfDay}`;
         setTimeString(localTimeString);   
     }  
 
