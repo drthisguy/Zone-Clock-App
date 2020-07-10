@@ -30,7 +30,7 @@ export  function HistoryList({ data, loadCity, clearList }) {
               <Button
                 type="button"
                 className="btn btn-danger"
-                style={{ float: "right" }}
+                style={clrBtn}
                 onClick={clearList.bind(this, () => {isConfirmed(!confirmed)})}
               >
                 <i className="fas fa-exclamation"> </i> Please Confirm
@@ -69,8 +69,8 @@ export  function HistoryList({ data, loadCity, clearList }) {
             <ul style={listStyle} >
                 <Fragment>
                      {listCities(data)}
-                     {confirmListReset()}
                 </Fragment>
+                     {confirmListReset()}
             </ul>
         </div>
     )
@@ -88,4 +88,14 @@ const itemStyle = {
 listStyle = {
     paddingLeft: '0px',
     flexDirection: 'column'
+}, 
+clrBtn = { 
+    float: 'right', 
+    marginTop: '10px',
+    fontSize: '9px',
+    backGroundColor: '#d23430',
+    borderColor: '#c9302c',
+    color: 'white', 
+    padding: '3px 10px',
+    fontWeight: '700'
 }
