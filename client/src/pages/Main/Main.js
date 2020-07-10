@@ -9,7 +9,7 @@ import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
 import { DaylightSavings } from '../../components/DaylightSavings';
 import { WorldMap } from '../../components/WorldMap';
-import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
+import { useFetch } from '../../utils/CustomHooks';
 import API from '../../utils/API';
 
 export default function Main() {
@@ -31,9 +31,9 @@ export default function Main() {
      }
    }, [])
 
-  //  useEffect(() => { 
-  //    saveHistory()
-  //  }, [history])
+   useEffect(() => { 
+     saveHistory()
+   }, [history])
 
    useEffect(() => { 
       if (initialMount.current) {
@@ -41,7 +41,7 @@ export default function Main() {
       }else {
         updateLocalStorage()
       }
-   }, [coordinates])
+   }, [zone])
 
   const onInputChange = async(e) => {
     const { name, value } = e.target;
