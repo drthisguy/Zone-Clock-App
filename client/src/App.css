@@ -24,8 +24,8 @@ input {
 }
 
 .historic-city {
-  animation: fadein 1.5s 1;
-  -webkit-animation: fadein 1.5s 1; /* Safari 4.0 - 8.0 */
+  animation: fadein 1.75s 1;
+  -webkit-animation: fadein 1.75s 1; /* Safari 4.0 - 8.0 */
   animation-fill-mode: forwards;  /*kills it on the last frame*/
   animation-timing-function: ease;
   position: static;

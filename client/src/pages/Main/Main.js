@@ -129,6 +129,12 @@ export default function Main() {
     setNames(names)
     setCoordinates(coords)
     updateUrl(zoneUrl);
+  },
+
+  clearHistoryList = (cb) => {
+    cb();
+    localStorage.clear();
+    setHistory([])
   }
 
     return (  
@@ -157,6 +163,7 @@ export default function Main() {
             <HistoryList 
             data={history.map( x => new Object({name: x.names.shortName, offset: x.rawOffset}))}
             loadCity={loadCityFromStorage}
+            clearList={clearHistoryList}
              />
           </Col>
           <Col size="md-9" >

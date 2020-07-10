@@ -19,3 +19,5 @@ export const Collapse = ({ navState, children, id }) => {
 }
 
 export const Wrapper = ({ children }) => <Container > <Row >{children}</Row></Container>
+
+export const Button = props => <button {...props} >{props.children}</button>
