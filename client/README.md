@@ -1,68 +1,66 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Company Directory](https://page-tyler.herokuapp.com/contact)
 
-## Available Scripts
 
-In the project directory, you can run:
+# 16-React-Profile
 
-### `npm start`
+Zone Clock Setup Utility.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Links](#links)
+* [Screens](#screen-grabs)
+* [Sources](#sources)
+* [Issues](#issues)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+___
 
-### `npm test`
+## General info
+I work for an engineering firm in the Philadelphia suburbs named Sapling that designs and manufactures clocks and synchronized, clock systems.  One of the items we offer are zone clocks.  And in Sapling production, these zone clocks should be pre-configured for whichever cities the customer chooses to use. The Zone Clock Setup Utility makes this process painless and straight forward by providing all the needed offset, bias and daylight saving information needed to program the clock.  Additionally, it'll provided more reginal information such as the city's location, displayed on a world map as well as its current, local time displayed on both an analog and digital clock.  With the browser's local storage, a user's search history is maintained to easily repeat common searches with a single click. The history list will also show the local times for these cities without submitting new searches, so it can also be used to confirm all clocks are setup correctly when finishing up.  
+___
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
+* ReactJS
+* Google Maps API
+* Google Places API
+* Google Geocoding API
+* TimezoneDB API
+* React Day Picker
 
-### `npm run build`
+	
+## Setup
+To run this project locally using npm cli:
+```
+$ type: npm install && npm start (Your own API keys needed).
+$ Or See deployed website.  
+```
+___
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Links:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[Github Repo](url here)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Deployed Website](url here)
 
-### `npm run eject`
+___
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Screens:
+![image](url here)
+___
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Sources
+https://reactjs.org/docs  
+reacttraining.com. 
+https://react.semantic-ui.com.  
+https://stackoverflow.com
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Issues & Contact
 
-## Learn More
+No known major issues. Daylight savings checks are currently not being made on cities in the history list.  therefore, if DST starts/ends between now and some previous search of that city, the displayed time could be incorrect. Clicking on it again however, will at least render the correct information in the main container.  It is recommended that the history list be cleared from time to time.  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If there are any other issues found or if there are just questions, email:  
+page.c.tyler@gmail.com 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Enjoy.
