@@ -65,7 +65,7 @@ analog = {
     backgroundPosition: 'center',
     backgroundImage: `url(${require("../../assets/img/DialA.png")}`
 },
-hrHand = {
+hour = {
     width: '15px',
     top: '48px',
     left: '114px ',
@@ -73,7 +73,7 @@ hrHand = {
     transformOrigin: '50% 69%', 
     zIndex:'0'
 },
-minHand = {
+min = {
     width: '15px',
     top: '43px',
     left: '114px',
@@ -81,11 +81,14 @@ minHand = {
     transformOrigin: '50% 78%', 
     zIndex:'1'
 },
-secHand = {
+sec = {
     width: '15px',
     top: '47px',
     left: '114px',
     position: 'absolute',
     transformOrigin: '50% 63%',
     zIndex:'2'
-}
+},
+hrHand = window.innerWidth > 1200 ?  hour : {...hour, width: '12px'} ,
+minHand = window.innerWidth > 1200 ?  min : {...min, width: '12px'} ,
+secHand = window.innerWidth > 1200 ?  sec : {...sec, width: '12px'}

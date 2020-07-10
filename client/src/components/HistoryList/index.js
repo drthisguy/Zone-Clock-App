@@ -22,7 +22,9 @@ export  function HistoryList({ data, loadCity, clearList }) {
     },
 
     confirmListReset = () => {
-        if (data.length < 1) return
+        if (data.length < 1) {
+            return
+        }
 
         if (confirmed) {
           return (
