@@ -131,10 +131,10 @@ export default function Main() {
     updateUrl(zoneUrl);
   },
 
-  clearHistoryList = (cb) => {
-    cb();
+  clearHistoryList = cb => {
     localStorage.clear();
-    setHistory([])
+    setHistory([]);
+    cb();
   }
 
     return (  

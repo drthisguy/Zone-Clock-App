@@ -47,7 +47,7 @@ export function AnalogClock({ offset }) {
     )
 }
 
-const mount = {
+let mount = {
     width: '250px',  
     height: '250px',
     textAlign: 'center',    
@@ -89,3 +89,5 @@ secHand = {
     transformOrigin: '50% 63%',
     zIndex:'2'
 }
+mount = window.innerWidth > 1200 ?  mount : {...mount, width: '200px', height: '200px'} ;
+analog = window.innerWidth > 1200 ?  analog : {...analog, backgroundSize: '200px'} ;
