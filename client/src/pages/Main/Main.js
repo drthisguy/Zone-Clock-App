@@ -18,6 +18,7 @@ export default function Main() {
    [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
    [ names, setNames ] = useState({longName:'Sapling, Warminster, Pa', shortName:'Sapling'}),
    [ predictions, setPredictions ] = useState({}),
+   [ query, setQuery ] = useState([]),
    [ history, setHistory ] = useState([]),
 
    initialMount = useRef(true),
@@ -47,9 +48,14 @@ export default function Main() {
       }
    }, [zone])
 
+   useEffect(() => {
+    const timeOutId = setTimeout(() => setCity(query), 500);
+    return () => clearTimeout(timeOutId);
+  }, [query]);
+
   const onInputChange = async(e) => {
     const { name, value } = e.target;
-    setCity({ ...city, [name]: value })
+    setQuery({ ...city, [name]: value })
 
     if (value.length > 0) {
     try {
@@ -101,7 +107,7 @@ export default function Main() {
   },
 
   renderPredictions = () => {
-      const { name } = city,
+      const { name } = query,
       { suggestions } = predictions;
 
     if (!suggestions || suggestions.length < 1) return
@@ -178,10 +184,10 @@ export default function Main() {
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">
                           <Row>
-                          {zone === null ? <div/> : <AnalogClock offset={zone.rawOffset} />}
+                          {isLoading ? <div/> : <AnalogClock offset={zone.rawOffset} />}
                          </Row>
                          <Row classes="justify-content-center mt-2">
-                            {zone === null ? <div/> : <DigitalClock offset={zone.rawOffset} />}
+                            {isLoading ? <div/> : <DigitalClock offset={zone.rawOffset} />}
                         </Row>
                         </Col>
                     </Row>
