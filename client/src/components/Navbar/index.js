@@ -20,14 +20,9 @@ export default function NavBar() {
                 
             <Collapse navState={navLinks} id={'target-collapse'}>
               <ul className="navbar-nav mr-auto">
-                <li className={pathname === "/" ? "nav-item active" : "nav-item"}>
-                    <Link to="/" className={'nav-link'}>
-                        Search 
-                    </Link>    
-                </li>
-                <li className={pathname === "/profiles" ? "nav-item active" : "nav-item"}>
-                    <Link to="/saved" className={'nav-link'}>
-                        Saved Cities
+                <li className={pathname === "/about" ? "nav-item active" : "nav-item"}>
+                    <Link to="/about" className={'nav-link'}>
+                        About This
                     </Link>    
                 </li>
               </ul>
