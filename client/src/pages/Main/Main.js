@@ -25,14 +25,18 @@ export default function Main() {
    { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
   
    useEffect(() => {
+     try {
      const data = JSON.parse(localStorage.getItem('history'))
      if (data) {
       setHistory(data)
      }
+    } catch (err) {console.log(err)}
    }, [])
 
    useEffect(() => { 
-     saveHistory()
+     try {
+      localStorage.setItem('history', JSON.stringify(history))
+     } catch (err) {console.log(err)}
    }, [history])
 
    useEffect(() => { 
@@ -64,10 +68,6 @@ export default function Main() {
     e.target.reset();
 
     getCoordinates(city.name)
-  },
-
-  saveHistory = () => {
-    localStorage.setItem('history', JSON.stringify(history))
   },
 
   updateLocalStorage = () => {

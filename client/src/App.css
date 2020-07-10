@@ -22,3 +22,33 @@ input {
   background-color: #F8F5F0;
   cursor: pointer
 }
+
+.historic-city {
+  animation: fadein 1.5s 1;
+  -webkit-animation: fadein 1.5s 1; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards;  /*kills it on the last frame*/
+  animation-timing-function: ease;
+  position: static;
+}
+
+/* Standard Browsers */
+@keyframes fadein {
+    0% { opacity: 0;}
+    50% {opacity: .35;}
+    75% {opacity: .65;}
+    100% {opacity: 1;}
+  }
+/*  Safari */
+@-webkit-keyframes fadein {
+    0% { opacity: 0;}
+    50% {opacity: .35;}
+    75% {opacity: .65;}
+    100% {opacity: 1;}
+}
+/* IE and Edge */
+@-ms-keyframes fadein {
+    0% { opacity: 0;}
+    50% {opacity: .35;}
+    75% {opacity: .65;}
+    100% {opacity: 1;}
+}
