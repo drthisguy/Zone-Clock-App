@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { uuid } from 'uuidv4';
 import { Container, Row, Col } from '../../components/Grid';
 import { ClockMount } from '../../components/ClockMount';
@@ -9,7 +9,7 @@ import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
 import { DaylightSavings } from '../../components/DaylightSavings';
 import { WorldMap } from '../../components/WorldMap';
-import { useFetch } from '../../utils/CustomHooks';
+import { useFetch, useForceUpdate } from '../../utils/CustomHooks';
 import API from '../../utils/API';
 
 export default function Main() {
@@ -20,6 +20,8 @@ export default function Main() {
    [ predictions, setPredictions ] = useState({}),
    [ history, setHistory ] = useState([]),
 
+   initialMount = useRef(true),
+
    { zone, isLoading, hasError, errorMessage, updateUrl } = useFetch();
   
    useEffect(() => {
@@ -29,9 +31,17 @@ export default function Main() {
      }
    }, [])
 
+  //  useEffect(() => { 
+  //    saveHistory()
+  //  }, [history])
+
    useEffect(() => { 
-     saveHistory()
-   }, [history])
+      if (initialMount.current) {
+        initialMount.current = false;
+      }else {
+        updateLocalStorage()
+      }
+   }, [coordinates])
 
   const onInputChange = async(e) => {
     const { name, value } = e.target;
@@ -83,7 +93,6 @@ export default function Main() {
     setNames({ longName, shortName })
     setCoordinates({ lat, lng })
     setCity({name: '', token: uuid()})
-    updateLocalStorage()
     updateUrl(zoneURL)
     } catch(err) {console.log(err)}
   },
@@ -114,9 +123,11 @@ export default function Main() {
   normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
 
   loadCityFromStorage = index => {
-    const { coords } = history[index],
+    const { coords, names } = history[index],
       zoneUrl = `/api/timezone/${coords.lat}/${coords.lng}`;
-    console.log(coords)
+
+    setNames(names)
+    setCoordinates(coords)
     updateUrl(zoneUrl);
   }
 
@@ -168,7 +179,9 @@ export default function Main() {
                 <div className="jumbotron">
                   <Row >
                   <Col size='md-12'>
-                      <WorldMap coords={coordinates} />
+                      <WorldMap 
+                      coords={coordinates} 
+                      />
                   </Col>
                   </Row>
                   <hr className='mt-4' />
