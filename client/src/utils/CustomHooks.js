@@ -16,7 +16,6 @@ export const useFetch = () => {
            result = await response.json();
           if (result.status === 'OK') {
             const saplingZone = FormatZone(result)
-            console.log("fetchZone -> saplingZone", result)
             setZone(saplingZone)
           } else {
             setError(true)

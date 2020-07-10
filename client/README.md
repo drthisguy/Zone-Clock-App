@@ -39,14 +39,14 @@ ___
 
 ## Links:
 
-[Github Repo](url here)
+[Github Repo](https://github.com/drthisguy/zoneclock-utility)
 
-[Deployed Website](url here)
+[Deployed Website](https://sapling-zoneclocks.herokuapp.com/)
 
 ___
 
 ## Screens:
-![image](url here)
+![image](https://user-images.githubusercontent.com/48693333/87196215-ebe2a100-c2c7-11ea-9420-01662a02565d.png)
 ___
 
 ## Sources

@@ -18,7 +18,6 @@ export default function Main() {
    [ coordinates, setCoordinates ] = useState({lat: 40.2067884, lng: -75.099807}),
    [ names, setNames ] = useState({longName:'Sapling, Warminster, Pa', shortName:'Sapling'}),
    [ predictions, setPredictions ] = useState({}),
-   [ query, setQuery ] = useState([]),
    [ history, setHistory ] = useState([]),
 
    initialMount = useRef(true),
@@ -48,14 +47,9 @@ export default function Main() {
       }
    }, [zone])
 
-   useEffect(() => {
-    const timeOutId = setTimeout(() => setCity(query), 500);
-    return () => clearTimeout(timeOutId);
-  }, [query]);
-
   const onInputChange = async(e) => {
     const { name, value } = e.target;
-    setQuery({ ...city, [name]: value })
+    setCity({ ...city, [name]: value })
 
     if (value.length > 0) {
     try {
@@ -107,7 +101,7 @@ export default function Main() {
   },
 
   renderPredictions = () => {
-      const { name } = query,
+      const { name } = city,
       { suggestions } = predictions;
 
     if (!suggestions || suggestions.length < 1) return
