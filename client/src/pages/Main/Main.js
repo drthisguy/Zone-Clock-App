@@ -178,10 +178,10 @@ export default function Main() {
                         </Col>
                         <Col size='md-4' classes="mt-n5 offset-md-2">
                           <Row>
-                          {isLoading ? <div/> : <AnalogClock offset={zone.rawOffset} />}
+                          {zone === null ? <div/> : <AnalogClock offset={zone.rawOffset} />}
                          </Row>
                          <Row classes="justify-content-center mt-2">
-                            {isLoading ? <div/> : <DigitalClock offset={zone.rawOffset} />}
+                            {zone === null ? <div/> : <DigitalClock offset={zone.rawOffset} />}
                         </Row>
                         </Col>
                     </Row>

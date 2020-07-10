@@ -1,27 +1,36 @@
 {
   "files": {
-    "main.css": "/static/css/main.b26dc8df.chunk.css",
-    "main.js": "/static/js/main.2e49242d.chunk.js",
-    "main.js.map": "/static/js/main.2e49242d.chunk.js.map",
+    "main.css": "/static/css/main.c10c32c2.chunk.css",
+    "main.js": "/static/js/main.edead41f.chunk.js",
+    "main.js.map": "/static/js/main.edead41f.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0168c229.js",
     "runtime-main.js.map": "/static/js/runtime-main.0168c229.js.map",
-    "static/js/2.77b5ed82.chunk.js": "/static/js/2.77b5ed82.chunk.js",
-    "static/js/2.77b5ed82.chunk.js.map": "/static/js/2.77b5ed82.chunk.js.map",
+    "static/css/2.c6231af7.chunk.css": "/static/css/2.c6231af7.chunk.css",
+    "static/js/2.691b56fb.chunk.js": "/static/js/2.691b56fb.chunk.js",
+    "static/js/2.691b56fb.chunk.js.map": "/static/js/2.691b56fb.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.12ce09b30460676989f5a4df81e4bb1e.js": "/precache-manifest.12ce09b30460676989f5a4df81e4bb1e.js",
+    "precache-manifest.3464fb3a10d58972de9d1caa9eb6e08b.js": "/precache-manifest.3464fb3a10d58972de9d1caa9eb6e08b.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.b26dc8df.chunk.css.map": "/static/css/main.b26dc8df.chunk.css.map",
-    "static/js/2.77b5ed82.chunk.js.LICENSE.txt": "/static/js/2.77b5ed82.chunk.js.LICENSE.txt",
-    "static/media/DialS.png": "/static/media/DialS.39843a78.png",
-    "static/media/Sapling-RoundMount.png": "/static/media/Sapling-RoundMount.eb663b29.png",
-    "static/media/clock-ABS.png": "/static/media/clock-ABS.9f2b42ca.png",
-    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg",
-    "static/media/sapling.png": "/static/media/sapling.49966c7a.png"
+    "static/css/2.c6231af7.chunk.css.map": "/static/css/2.c6231af7.chunk.css.map",
+    "static/css/main.c10c32c2.chunk.css.map": "/static/css/main.c10c32c2.chunk.css.map",
+    "static/js/2.691b56fb.chunk.js.LICENSE.txt": "/static/js/2.691b56fb.chunk.js.LICENSE.txt",
+    "static/media/DialA.png": "/static/media/DialA.030801bc.png",
+    "static/media/Sapling-Round-Still-Zone-Clock-Brushed-Aluminum.png": "/static/media/Sapling-Round-Still-Zone-Clock-Brushed-Aluminum.a2545f4c.png",
+    "static/media/Sapling-RoundMount.png": "/static/media/Sapling-RoundMount.05ddd4cc.png",
+    "static/media/clock-ABS.png": "/static/media/clock-ABS.531da561.png",
+    "static/media/hour-hand-ds.png": "/static/media/hour-hand-ds.8d2ce081.png",
+    "static/media/hour-hand.png": "/static/media/hour-hand.3655b242.png",
+    "static/media/minute-hand.png": "/static/media/minute-hand.ff935a33.png",
+    "static/media/minute-hand_ds.png": "/static/media/minute-hand_ds.bcb53df0.png",
+    "static/media/sapling.png": "/static/media/sapling.49966c7a.png",
+    "static/media/second-hand.png": "/static/media/second-hand.d69756b3.png",
+    "static/media/second-hand_ds.png": "/static/media/second-hand_ds.18df2784.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0168c229.js",
-    "static/js/2.77b5ed82.chunk.js",
-    "static/css/main.b26dc8df.chunk.css",
-    "static/js/main.2e49242d.chunk.js"
+    "static/css/2.c6231af7.chunk.css",
+    "static/js/2.691b56fb.chunk.js",
+    "static/css/main.c10c32c2.chunk.css",
+    "static/js/main.edead41f.chunk.js"
   ]
 }
