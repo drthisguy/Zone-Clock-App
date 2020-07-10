@@ -77,6 +77,9 @@ export default function Main() {
     if (history.some( x => x.names.longName === zone.names.longName)) {
       return
     }
+    if (history.length > 16) {
+      history.shift();
+    }
     setHistory([...history, zone ])
   },
 

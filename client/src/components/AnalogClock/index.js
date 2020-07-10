@@ -23,7 +23,8 @@ export function AnalogClock({ offset }) {
 
          setHands({ hourHand, minuteHand, secondHand })
     }
-
+    
+    //Return a still, clock image for smaller screens.
     if (window.innerWidth < 992) {
         return (
             <div style={{...mount, width:'150px', height:'150px'}}>

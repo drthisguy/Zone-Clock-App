@@ -11,6 +11,7 @@ export function ClockMount() {
      dubaiOffset = 4, 
      tokyoOffset = 9;
 
+     //Return still, clock image for smaller screen sizes.
      if (window.innerWidth < 992) {
          return <div style={stillClocks} />
      }
