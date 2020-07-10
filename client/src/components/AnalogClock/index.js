@@ -24,6 +24,13 @@ export function AnalogClock({ offset }) {
          setHands({ hourHand, minuteHand, secondHand })
     }
 
+    if (window.innerWidth < 992) {
+        return (
+            <div style={{...mount, width:'150px', height:'150px'}}>
+                <div style={{...analog, backgroundSize: '150px', backgroundImage: `url(${require("../../assets/img/clock-375.png")}`}}/>
+            </div>
+         )
+    }
     return (
         <div style={mount} >
             <ul style={analog}>
@@ -33,7 +40,7 @@ export function AnalogClock({ offset }) {
                     />
                 </li>
                 <li>
-                    <img src={require('../../assets/img/minutte-hand_ds.png')} 
+                    <img src={require('../../assets/img/minute-hand_ds.png')} 
                     style={{...minHand, transform: `rotate(${minuteHand}deg)`}} 
                     />
                 </li> 
@@ -65,7 +72,7 @@ analog = {
     backgroundPosition: 'center',
     backgroundImage: `url(${require("../../assets/img/clock-ABS.png")}`
 },
-hrHand = {
+lgHr = {
     width: '25px',
     top: '49px',
     left: '112px ',
@@ -73,7 +80,7 @@ hrHand = {
     transformOrigin: '50% 69%', 
     zIndex:'0'
 },
-minHand = {
+lgMin = {
     width: '25px',
     top: '37px',
     left: '113px',
@@ -81,13 +88,19 @@ minHand = {
     transformOrigin: '50% 78%', 
     zIndex:'1'
 },
-secHand = {
+lgSec = {
     width: '25px',
     top: '45px',
     left: '113px',
     position: 'absolute',
     transformOrigin: '50% 63%',
     zIndex:'2'
-}
+},
+smHr = {...lgHr, width:'20px', top:'40px', left:'89px'},
+smMin = {...lgMin, width:'20px', top:'34px', left:'90px'},
+smSec = {...lgSec, width:'20px', top:'38px', left:'90px'},
+hrHand = window.innerWidth > 1200 ?  lgHr : smHr,
+minHand = window.innerWidth > 1200 ?  lgMin : smMin,
+secHand = window.innerWidth > 1200 ?  lgSec : smSec;
 mount = window.innerWidth > 1200 ?  mount : {...mount, width: '200px', height: '200px'} ;
 analog = window.innerWidth > 1200 ?  analog : {...analog, backgroundSize: '200px'} ;

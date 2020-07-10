@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { FourDigitClock } from '../FourDigitClock'
 import { Button } from '../Grid'
 
-export  function HistoryList({ data, loadCity, clearList }) {
+export function HistoryList({ data, loadCity, clearList }) {
 
     const [ confirmed, isConfirmed ] = useState(false),
 

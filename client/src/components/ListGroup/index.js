@@ -7,7 +7,7 @@ export function ListGroup({ data }) {
                 <li style={itemStyle}>Country:<span/>{data.countryName}</li>
                 <li style={itemStyle}>Time Zone:<span/>{data.zoneName}</li>
                 <li style={itemStyle}>GMT Offset:<span/>{data.offset}</li>
-                <li style={itemStyle}>Bias (Secs):<span/>{data.bias}</li>
+                <li style={itemStyle}>Bias (sec):<span/>{data.bias}</li>
                 <li style={itemStyle}>Daylight Savings:<span/>{data.dst}</li>
             </ul>
         </div>
