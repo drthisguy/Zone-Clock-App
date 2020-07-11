@@ -6,13 +6,11 @@ export function ZoneClocks({ offset, position }) {
     const [ hands, setHands ] = useState({});
 
     useEffect(() => {
-        const timer = setInterval(localClock, 1000)  
+        const timer = setInterval(localClock, 250)  
             return () => clearInterval(timer)
     }, [offset])
 
-    const { hourHand, minuteHand, secondHand } = hands,
-
-    localClock = () => {
+    const localClock = () => {
 
         let { localHours, localMinutes, localSeconds } = getLocalTime(offset),
         
@@ -24,9 +22,12 @@ export function ZoneClocks({ offset, position }) {
          setHands({ hourHand, minuteHand, secondHand })
     }
 
+    const { left, top } = position,
+    { hourHand, minuteHand, secondHand } = hands;
+
     return (
         <div style={mount} >
-            <ul style={{...analog, left: position.left, top: position.top }}>
+            <ul style={{...analog, left, top }}>
                 <li>
                     <img src={require('../../assets/img/hour-hand.png')} 
                     style={{...hrHand, transform: `rotate(${hourHand}deg)`}} 

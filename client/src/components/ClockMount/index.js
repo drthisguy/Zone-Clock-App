@@ -13,7 +13,9 @@ export function ClockMount() {
 
      //Return still, clock image for smaller screen sizes.
      if (window.innerWidth < 992) {
-         return <div style={stillClocks} />
+         return <div style={{...background, 
+            backgroundImage:`url(${require("../../assets/img/Sapling-Round-Still-Zone-Clock-Brushed-Aluminum.png")}`}} 
+            />
      }
     return (
         <div style={background}>
@@ -28,14 +30,6 @@ export function ClockMount() {
 
 const background = {
     backgroundImage: `url(${require("../../assets/img/Sapling-RoundMount.png")}`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '80%',
-    height: '260px',
-    marginTop: '30px'
-},
-stillClocks = {
-    backgroundImage: `url(${require("../../assets/img/Sapling-Round-Still-Zone-Clock-Brushed-Aluminum.png")}`,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '80%',

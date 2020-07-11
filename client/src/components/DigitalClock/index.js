@@ -6,7 +6,7 @@ export function DigitalClock({ offset }) {
     const [ timeString, setTimeString ] = useState('12:00:00 AM');
     
     useEffect(() => {
-        const timer = setInterval(localClock, 1000)  
+        const timer = setInterval(localClock, 250)  
             return () => clearInterval(timer)
     }, [offset])
 

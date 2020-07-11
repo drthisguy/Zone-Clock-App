@@ -6,7 +6,7 @@ export function AnalogClock({ offset }) {
     const [ hands, setHands ] = useState({});
 
     useEffect(() => {
-        const timer = setInterval(localClock, 1000)  
+        const timer = setInterval(localClock, 250)  
             return () => clearInterval(timer)
     }, [offset])
 
