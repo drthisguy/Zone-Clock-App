@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { FormatZone } from './Helpers'
 
 
@@ -33,25 +33,4 @@ export const useFetch = () => {
     }, [url]);
     
     return { zone, isLoading, hasError, errorMessage, updateUrl }
-}
-
-//used to track previous states for comparison purposes. ex use:  previousItem = usePrevious(itemInput.property),
- export const usePrevious = value => {
-
-        const ref = useRef(false),
-         refValue = useRef()
-        console.log(ref.current, value)
-        useEffect(() => {
-          if(ref.current !== value) {
-          refValue.current = value;
-          ref.current = true;
-          }
-        }, [value]);
-        return ref.current;  
-}
-
-//force the re-rendering of state.
-export const useForceUpdate = () => {
-    const [value, setValue] = useState(0); 
-    return () => setValue(value => ++value); // update the state to force render
 }

@@ -21,7 +21,7 @@ export const FormatZone = zone => {
     let { dst, gmtOffset, zoneStart, zoneEnd } = zone;
 
     //get real offset in hours
-     dst = dst == 1 ? 'ON' : 'OFF';
+     dst = dst === '1' ? 'ON' : 'OFF';
     const rawOffset = gmtOffset/3600,
      preOff = dst === 'ON' ? rawOffset - 1 : rawOffset;
     let offset = Math.floor(preOff);
@@ -29,8 +29,8 @@ export const FormatZone = zone => {
 
     //workout the bias offset in seconds
     let bias = Math.abs(preOff);
-     bias = (bias - Math.floor(bias))*3600;
-     bias = bias !==0 ? '+'+ bias : bias;
+     bias = (bias - Math.floor(bias)) * 3600;
+     bias = bias !== 0 ? '+' + bias : bias;
     
     //reformat unix dst dates
     let dstStart = new Date(zoneStart*1000);
@@ -38,9 +38,9 @@ export const FormatZone = zone => {
 
     //convert dst times from EST to its local time.
      dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset()*60000);
-     dstStart = new Date(dstStart + 3600000*rawOffset);
-     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset()*60000);
-     dstEnd = new Date(dstEnd + 3600000*rawOffset);
+     dstStart = new Date(dstStart + 3600000 * rawOffset);
+     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset() * 60000);
+     dstEnd = new Date(dstEnd + 3600000 * rawOffset);
 
     //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. 
     if(new Date() > dstStart && new Date() < dstEnd && dst === 'OFF') {
@@ -117,11 +117,11 @@ export const stringTime = date => {
     localSeconds = (localSeconds < 10 ? '0':'')+ localSeconds;
 
     const timeOfDay = localHours < 12 ? 'AM' : 'PM';
-    localHours = localHours == -1? localHours +24 : localHours;
+    localHours = localHours === -1 ? localHours + 24 : localHours;
     localHours = localHours > 12 ? localHours - 12 : localHours;
-    localHours = localHours == 0 ? 12 : localHours;
+    localHours = localHours === 0 ? 12 : localHours;
 
-    const stringifyedTime = localHours + ":" + localMinutes + ":" + localSeconds + " " + timeOfDay;
+    const stringifyedTime = localHours + ":" + localMinutes + " " + timeOfDay;
 
     return stringifyedTime;
 }

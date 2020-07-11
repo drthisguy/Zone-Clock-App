@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getLocalTime } from '../../utils/Helpers';
 
 export function AnalogClock({ offset }) {
@@ -43,16 +43,19 @@ export function AnalogClock({ offset }) {
                 <li>
                     <img src={require('../../assets/img/hour-hand-ds.png')} 
                     style={{...hrHand, transform: `rotate(${hourHand}deg)`}} 
+                    alt='Hour Hand'
                     />
                 </li>
                 <li>
                     <img src={require('../../assets/img/minute-hand_ds.png')} 
                     style={{...minHand, transform: `rotate(${minuteHand}deg)`}} 
+                    alt='Minute Hand'
                     />
                 </li> 
                 <li>
                     <img src={require('../../assets/img/second-hand_ds.png')} 
                     style={{...secHand, transform: `rotate(${secondHand}deg)`}} 
+                    alt='Second Hand'
                     />
                 </li>
             </ul>

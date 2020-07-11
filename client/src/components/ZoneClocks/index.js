@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { getLocalTime } from '../../utils/Helpers';
 
 export function ZoneClocks({ offset, position }) {
@@ -31,16 +31,19 @@ export function ZoneClocks({ offset, position }) {
                 <li>
                     <img src={require('../../assets/img/hour-hand.png')} 
                     style={{...hrHand, transform: `rotate(${hourHand}deg)`}} 
+                    alt='Hour Hand'
                     />
                 </li>
                 <li>
                     <img src={require('../../assets/img/minute-hand.png')} 
                     style={{...minHand, transform: `rotate(${minuteHand}deg)`}} 
+                    alt='Minute Hand'
                     />
                 </li> 
                 <li>
                     <img src={require('../../assets/img/second-hand.png')} 
                     style={{...secHand, transform: `rotate(${secondHand}deg)`}} 
+                    alt='Second Hand'
                     />
                 </li>
             </ul>

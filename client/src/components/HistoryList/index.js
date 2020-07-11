@@ -81,7 +81,6 @@ export function HistoryList({ data, loadCity, clearList }) {
 const itemStyle = {
     alignItems: 'center',
     border: 'none',
-    borderBottom: '1px solid rgb(0, 0, 0)', //used if browser doesn't support my attempt to use opacity below.  
     borderBottom: '1px solid rgba(0, 0, 0, .3)',
     justifyContent: 'space-between',
     padding: '12px 20px',

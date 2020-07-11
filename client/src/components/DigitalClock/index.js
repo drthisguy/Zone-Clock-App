@@ -18,7 +18,7 @@ export function DigitalClock({ offset }) {
 
         const timeOfDay = localHours < 12  ? 'AM' : 'PM';
             localHours = localHours > 12  ? localHours - 12 : localHours;
-            localHours = localHours == 0  ? 12 : localHours;
+            localHours = localHours === 0  ? 12 : localHours;
 
         const localTimeString = localHours + ':' + localMinutes + ':' + localSeconds + ' ' + timeOfDay;
         setTimeString(localTimeString);   
