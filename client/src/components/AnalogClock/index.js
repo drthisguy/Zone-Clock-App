@@ -24,6 +24,19 @@ export function AnalogClock({ offset }) {
          setHands({ hourHand, minuteHand, secondHand })
     }
 
+
+
+    //Return a still, clock image for smaller screen sizes.
+    if (window.innerWidth < 992) {
+    return ( 
+        <div style={{...mount, height:'150px', width:'150px'}}>
+            <div style={{...analog, 
+                backgroundSize: '150px', 
+                backgroundImage: `url(${require("../../assets/img/clock-375.png")}`}} 
+                />
+        </div>
+        )
+    }
     return (
         <div style={mount} >
             <ul style={analog}>
