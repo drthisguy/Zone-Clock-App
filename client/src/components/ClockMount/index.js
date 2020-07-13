@@ -33,6 +33,7 @@ const background = {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '80%',
+    overflow: 'hidden',
     height: '260px',
     marginTop: '30px'
 },
