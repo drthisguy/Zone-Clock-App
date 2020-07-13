@@ -26,7 +26,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
         return (
             <Fragment>
                 <Row>
-                    <h2><i class="small material-icons">timelapse</i> No Daylight Savings{'\n'}</h2>
+                    <h2><i classNames="small material-icons">timelapse</i> No Daylight Savings{'\n'}</h2>
                 </Row>
                 <Row>
                     <p>{`${name} Does NOT observe a daylight savings. Choose`} <b><em>"None"</em></b> for this clock.</p>
