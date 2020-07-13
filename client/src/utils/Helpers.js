@@ -110,11 +110,9 @@ export const getCountryGroup = code => {
 Therefore, we'll make em into a string w/ the proper time, and use that in the UI.  */   
 export const stringTime = date => {
     let localHours = date.getHours() - 1, //get and correct the hour.
-     localMinutes = date.getMinutes(),
-     localSeconds = date.getSeconds();
+     localMinutes = date.getMinutes();
 
     localMinutes = (localMinutes < 10 ? '0':'')+ localMinutes;
-    localSeconds = (localSeconds < 10 ? '0':'')+ localSeconds;
 
     const timeOfDay = localHours < 12 ? 'AM' : 'PM';
     localHours = localHours === -1 ? localHours + 24 : localHours;

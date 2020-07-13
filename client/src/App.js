@@ -6,7 +6,7 @@ import About from './pages/About'
 import './App.css';
 
 
-function App() {
+export default function App() {
   return (
     <Router >
       <Navbar />
@@ -15,5 +15,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

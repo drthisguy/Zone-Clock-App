@@ -43,6 +43,18 @@ export default function Main() {
       if (initialMount.current) {
         initialMount.current = false;
       }else {
+        const updateLocalStorage = () => {
+          zone.coords = coordinates;
+          zone.names = names; 
+      
+          if (history.some( x => x.names.longName === zone.names.longName)) {
+            return
+          }
+          if (history.length > 16) {
+            history.shift();
+          }
+          setHistory([...history, zone ])
+        }
         updateLocalStorage()
       }
    }, [zone])
@@ -68,19 +80,6 @@ export default function Main() {
     e.target.reset();
 
     getCoordinates(city.name)
-  },
-
-  updateLocalStorage = () => {
-    zone.coords = coordinates;
-    zone.names = names; 
-
-    if (history.some( x => x.names.longName === zone.names.longName)) {
-      return
-    }
-    if (history.length > 16) {
-      history.shift();
-    }
-    setHistory([...history, zone ])
   },
 
   getCoordinates = async city => {

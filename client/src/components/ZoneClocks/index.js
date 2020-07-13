@@ -6,21 +6,21 @@ export function ZoneClocks({ offset, position }) {
     const [ hands, setHands ] = useState({});
 
     useEffect(() => {
+        const localClock = () => {
+
+            let { localHours, localMinutes, localSeconds } = getLocalTime(offset),
+            
+            //Set the angle for each clock hand
+                hourHand = localHours * 30 + (localMinutes/2),  // 360/12 = 30 + 15degrees for 30min (example)
+                minuteHand = localMinutes * 6,  // 360/60 = 6
+                secondHand = localSeconds * 6; // 360/60 = 6
+    
+             setHands({ hourHand, minuteHand, secondHand })
+        }    
         const timer = setInterval(localClock, 250)  
             return () => clearInterval(timer)
     }, [offset])
 
-    const localClock = () => {
-
-        let { localHours, localMinutes, localSeconds } = getLocalTime(offset),
-        
-        //Set the angle for each clock hand
-            hourHand = localHours * 30 + (localMinutes/2),  // 360/12 = 30 + 15degrees for 30min (example)
-            minuteHand = localMinutes * 6,  // 360/60 = 6
-            secondHand = localSeconds * 6; // 360/60 = 6
-
-         setHands({ hourHand, minuteHand, secondHand })
-    }
 
     const { left, top } = position,
     { hourHand, minuteHand, secondHand } = hands;
