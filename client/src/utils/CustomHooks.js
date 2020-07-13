@@ -21,7 +21,7 @@ export const useFetch = () => {
             setZone(saplingZone)
           } else {
             setError(true)
-            setErrorMessage('Nothing found. Check spelling. Or if the problem persist, the resource may be down. Try again later.')
+            setErrorMessage(result.message)
           }
           setIsLoading(false)
         } catch (err) {
@@ -33,5 +33,10 @@ export const useFetch = () => {
         fetchZone()
     }, [url]);
     
-    return { zone, isLoading, hasError, errorMessage, updateUrl }
+    const setNewError = msg => {
+      setErrorMessage(msg)
+      setError(true)
+      setTimeout(()=> {setError(false)}, 5000)
+    }
+    return { zone, updateUrl, isLoading, hasError, errorMessage, setNewError }
 }

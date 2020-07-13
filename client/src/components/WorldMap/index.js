@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import API from '../../utils/API';
 import mapStyle from './mapStyle.json'
 
+
 export function WorldMap({ coords }) {
 
     useEffect(() => {
@@ -17,14 +18,14 @@ export function WorldMap({ coords }) {
               center: coords,
               disableDefaultUI: true,
               styles: mapStyle
-            })
-            const marker = new window.google.maps.Marker({ position: coords, map: display });
+            }),
+            marker = new window.google.maps.Marker({ position: coords, map: display });
         }
         loadMap()
     }, [coords])
 
 
-    const loadScript = (url) => {
+    const loadScript = url => {
         const index = window.document.getElementsByTagName('script')[0],
 
         script = window.document.createElement('script');

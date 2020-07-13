@@ -37,7 +37,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
         return (
             <Fragment>
                 <Row>
-                    <h2><i class="small material-icons">timelapse</i> Daylight Savings</h2>  
+                    <h2><i className="small material-icons">timelapse</i> Daylight Savings</h2>  
                 </Row>
                 <Row>
                     {message}
