@@ -8,6 +8,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
     
     let message;
     const group = getCountryGroup(code),
+    
       startMods = {
         highlighted: dstStart
       },
@@ -29,7 +30,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                     <h2><i className="small material-icons">timelapse</i> No Daylight Savings</h2>
                 </Row>
                 <Row>
-                    <p>{`${name} Does NOT observe a daylight savings. Choose`} <b><em>"None"</em></b> for this clock.</p>
+                    <p>{<em>{name}</em>} Does NOT observe a daylight savings. Choose <b><em>"None"</em></b> for this clock.</p>
                 </Row>
             </Fragment>
         )

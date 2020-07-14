@@ -30,13 +30,14 @@ export default function Main() {
       if (data) {
         setHistory(data)
       }
-    } catch (err) { throw(err) }
+    } catch (err) { setNewError(err) }
   }, [])
 
   useEffect(() => {
     try {
       localStorage.setItem('history', JSON.stringify(history))
-    } catch (err) { throw(err) }
+    } catch (err) { setNewError(err) }
+    setNewError()
   }, [history])
   
   useEffect(() => {
