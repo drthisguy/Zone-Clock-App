@@ -9,6 +9,7 @@ import { DigitalClock } from '../../components/DigitalClock';
 import { AnalogClock } from '../../components/AnalogClock';
 import { DaylightSavings } from '../../components/DaylightSavings';
 import { WorldMap } from '../../components/WorldMap';
+import { Loading } from '../../components/Loading';
 import { uuid } from 'uuidv4';
 import API from '../../utils/API';
 
@@ -37,7 +38,6 @@ export default function Main() {
     try {
       localStorage.setItem('history', JSON.stringify(history))
     } catch (err) { setNewError(err) }
-    setNewError()
   }, [history])
   
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Main() {
         zone.coords = coordinates;
         zone.names = names;
 
-        if (history.some(x => x.names.longName === zone.names.longName)) {
+        if (history.some( x => x.names.longName === zone.names.longName)) {
           return
         }
         if (history.length > 16) {
@@ -72,7 +72,7 @@ export default function Main() {
         suggestions = status === 'OK' ? predictions.map(x => x.description) : ['NO SUGGESTIONS']
         setPredictions({ suggestions })
       }
-      catch (err) { return }
+      catch (err) { setNewError(err) }
     }
   },
 
@@ -185,22 +185,27 @@ export default function Main() {
         <Col size="md-9" >
           {hasError && <Messenger />}
 
+        { isLoading ? <Loading /> :
+        
           <div className="jumbotron">
             <Row >
               <Col size='md-6'>
                 <h4 style={{ marginTop: '-40px' }}><center><em><b>{names.longName}</b></em></center></h4>
-                {isLoading ? <div /> : <ListGroup data={zone} />}
+                <ListGroup data={zone} />
               </Col>
               <Col size='md-4' classes="mt-n5 offset-md-2">
                 <Row>
-                  {isLoading ? <div /> : <AnalogClock offset={zone.rawOffset} />}
+                  <AnalogClock offset={zone.rawOffset} />
                 </Row>
                 <Row classes="justify-content-center mt-2">
-                  {isLoading ? <div /> : <DigitalClock offset={zone.rawOffset} />}
+                  <DigitalClock offset={zone.rawOffset} />
                 </Row>
               </Col>
             </Row>
           </div>
+}
+          { isLoading ? <Loading /> :
+
           <div className="jumbotron">
             <Row >
               <Col size='md-12'>
@@ -210,14 +215,15 @@ export default function Main() {
               </Col>
             </Row>
             <hr className='mt-4' />
-            {isLoading ? <div /> :
               <DaylightSavings
                 name={names.shortName}
                 dstStart={zone.dstStart}
                 dstEnd={zone.dstEnd}
                 code={zone.countryCode}
-              />}
+              />
           </div>
+}
+      { isLoading ? <Loading /> : <div/> }
         </Col>
       </Row>
     </Container>
