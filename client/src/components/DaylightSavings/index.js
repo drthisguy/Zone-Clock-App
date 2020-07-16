@@ -37,20 +37,20 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                     {message}
                 </Row>
                 <Row >
-                    <Col size='md-6' classes='text-center' >
-                        <div style={window.innerWidth > 767 ? {float:'right'} : {}}>
+                    <Col size="md-6" classes="text-center" >
+                        <div style={window.innerWidth > 767 ? {float:"right"} : {}}>
                             <style>{birthdayStyle}</style>
                             <DayPicker 
                             month={new Date(dstStart.getFullYear(), dstStart.getMonth())} 
                             modifiers={{highlighted: dstStart}} 
                             months={beginMonths} 
                             />
-                            <div style={window.innerWidth > 767 ? {textAlign:'center'} : {}} >
+                            <div style={window.innerWidth > 767 ? {textAlign:"center"} : {}} >
                                {dstStart.toDateString()} at {stringTime(dstStart)}
                             </div>
                         </div>
                     </Col>
-                    <Col size='md-6'>
+                    <Col size="md-6">
                         
                         <div>
                             <style>{birthdayStyle}</style>
@@ -59,7 +59,7 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                             modifiers={{highlighted: dstEnd}} 
                             months={endMonths} 
                             />
-                            <div style={window.innerWidth > 992 ? {marginLeft: '40px'} : {}}>
+                            <div style={window.innerWidth > 992 ? {marginLeft: "40px"} : {}}>
                                 {dstEnd.toDateString()} at {dstEnd.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }).replace(/^0(?:0:0?)?/, '')}
                             </div>
                         </div>

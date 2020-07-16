@@ -9,7 +9,7 @@ export function HistoryList({ data, loadCity, clearList }) {
     listCities = cities => {
         return (
             cities.map( (city, i) => 
-                <li className='historic-city'
+                <li className="historic-city"
                  key={i}
                  style={itemStyle}
                  onClick={loadCity.bind(this, i)}
