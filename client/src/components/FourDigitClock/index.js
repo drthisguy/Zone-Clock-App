@@ -25,8 +25,8 @@ export function FourDigitClock({ offset }) {
 
 
     return (
-        <div>
+        <main>
             {timeString}
-        </div>
+        </main>
     )
 }

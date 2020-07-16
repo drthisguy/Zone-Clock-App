@@ -51,7 +51,7 @@ export function ZoneClocks({ offset, position }) {
     )
 }
 
-const mount = {
+let mount = {
     width: '230',  
     height: '230',
     textAlign: 'center',    

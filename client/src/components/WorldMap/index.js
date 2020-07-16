@@ -13,13 +13,13 @@ export function WorldMap({ coords }) {
             loadScript(url)
         },
         initMap = () => {
-            const display = new window.google.maps.Map(document.getElementById('map'), {
+            const map = new window.google.maps.Map(document.getElementById('map'), {
               zoom: 1.75,
               center: coords,
               disableDefaultUI: true,
               styles: mapStyle
             }),
-            marker = new window.google.maps.Marker({ position: coords, map: display });
+            marker = new window.google.maps.Marker({ position: coords, map });
         }
         loadMap()
     }, [coords])

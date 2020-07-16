@@ -1,7 +1,6 @@
 import React from 'react'
 
-export function ListGroup({ data }) {
-    return (
+export const ListGroup = ({ data }) =>  (
         <div>
             <ul style={listStyle}>
                 <li style={itemStyle}>Country:<span/>{data.countryName}</li>
@@ -12,7 +11,6 @@ export function ListGroup({ data }) {
             </ul>
         </div>
     )
-}
 
 const itemStyle = {
     alignItems: 'center',
@@ -25,5 +23,5 @@ listStyle = {
     paddingLeft: '0px',
     flexDirection: 'column',
     marginTop: '50px',
-    marginBottom: '-50px'
+    marginBottom: '-50px'       
 }

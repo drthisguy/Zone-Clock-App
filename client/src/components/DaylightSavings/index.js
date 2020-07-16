@@ -6,15 +6,8 @@ import 'react-day-picker/lib/style.css';
 
 export function DaylightSavings({ name, dstStart, dstEnd, code }) {
     
-    let message;
-    const group = getCountryGroup(code),
-    
-      startMods = {
-        highlighted: dstStart
-      },
-      endMods = {
-        highlighted: dstEnd
-      };
+    let message,
+      group = getCountryGroup(code);
     
     if (group === 'none') {
          message = <p>{<em>{name}</em>} has no preset daylight savings schedule.  Select the <b><em>"Day of Week in Month"</em></b> method. And configure the dates as follows:</p>
@@ -49,8 +42,8 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                             <style>{birthdayStyle}</style>
                             <DayPicker 
                             month={new Date(dstStart.getFullYear(), dstStart.getMonth())} 
+                            modifiers={{highlighted: dstStart}} 
                             months={beginMonths} 
-                            modifiers={startMods} 
                             />
                             <div style={window.innerWidth > 767 ? {textAlign:'center'} : {}} >
                                {dstStart.toDateString()} at {stringTime(dstStart)}
@@ -63,8 +56,8 @@ export function DaylightSavings({ name, dstStart, dstEnd, code }) {
                             <style>{birthdayStyle}</style>
                             <DayPicker 
                             month={new Date(dstEnd.getFullYear(), dstEnd.getMonth())}
+                            modifiers={{highlighted: dstEnd}} 
                             months={endMonths} 
-                            modifiers={endMods} 
                             />
                             <div style={window.innerWidth > 992 ? {marginLeft: '40px'} : {}}>
                                 {dstEnd.toDateString()} at {dstEnd.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }).replace(/^0(?:0:0?)?/, '')}

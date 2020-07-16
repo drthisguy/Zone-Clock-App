@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useFetch } from '../../utils/CustomHooks';
-import { Container, Row, Col } from '../../components/Grid';
+import { SearchField, Container, Row, Col } from '../../components/Grid';
 import { ClockMount } from '../../components/ClockMount';
-import { SearchField } from '../../components/Search';
 import { ListGroup } from '../../components/ListGroup';
 import { HistoryList } from '../../components/HistoryList';
 import { DigitalClock } from '../../components/DigitalClock';

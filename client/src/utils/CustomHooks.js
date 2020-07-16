@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FormatZone } from './Helpers'
 
 
-//I'm using this hook for more granular control, options & handling for my API call to timezoneDB.
+//I'm using this hook for more control, options & handling of my API call to timezoneDB.
 export const useFetch = () => {
     const [ zone, setZone ] = useState(null),
     [ isLoading, setIsLoading ] = useState(true),

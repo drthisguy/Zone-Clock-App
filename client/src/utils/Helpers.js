@@ -107,7 +107,7 @@ export const getCountryGroup = code => {
 }
 
 /* Because DST start times don't actually exist, they get bumped up to the next hour as part of its Unix timestamp. 
-Therefore, we'll make em into a string w/ the proper time, and use that in the UI.  */   
+Therefore, we'll make em into a string w/ the proper time, and use that in our UI.  */   
 export const stringTime = date => {
     let localHours = date.getHours() - 1, //get and correct the hour.
      localMinutes = date.getMinutes();
