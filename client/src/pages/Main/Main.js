@@ -59,7 +59,7 @@ export default function Main() {
     }
   }, [zone])
 
-  const onInputChange = async (e) => {
+  const onInputChange = async e => {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
 
@@ -68,7 +68,7 @@ export default function Main() {
         let suggestions;
         const { predictions, status } = await API.predictCities({ ...city, name: value });
 
-        suggestions = status === 'OK' ? predictions.map(x => x.description) : ['NO SUGGESTIONS']
+        suggestions = status === 'OK' ? predictions.map(({ description }) => description) : ['NO SUGGESTIONS']
         setPredictions({ suggestions })
       }
       catch (err) { setNewError(err) }
@@ -103,7 +103,7 @@ export default function Main() {
     getCity(value)
   },
 
-  //removes any accent/diacritic markings form autocompleted, text input.
+  //removes any accent/diacritic markings from autocompleted, text input.
   normalizeString = str => str.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
 
   onFormSubmit = e => {
@@ -116,7 +116,7 @@ export default function Main() {
   getCity = async city => {
     try {
       const { results } = await API.googleThis(city),
-        [place] = results,
+        [ place ] = results,
         longName = place.formatted_address.replace(/[0-9]/g, ''), //remove any numbering that's common here with google.
         shortName = place.address_components[0].long_name,
         lat = place.geometry.location.lat,
@@ -133,7 +133,6 @@ export default function Main() {
       );
     }
   },
-
 
   loadCityFromStorage = index => {
     const { coords, names } = history[index],
@@ -176,13 +175,14 @@ export default function Main() {
             <h5><i className="fas fa-history"></i><em style={{ float: 'right' }}>History</em></h5>
           </div>
           <HistoryList
-            data={history.map(x => new Object({ name: x.names.shortName, offset: x.rawOffset }))}
+            data={history.map(({ names, rawOffset }) => new Object({ name: names.shortName, offset: rawOffset }))}
             loadCity={loadCityFromStorage}
             clearList={clearHistoryList}
           />
         </Col>
         <Col size="md-9" >
-          {hasError && <Messenger />}
+
+        {hasError && <Messenger />}
 
         { isLoading ? <Loading /> :
         

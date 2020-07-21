@@ -12,7 +12,7 @@ export const Col = ({ size, classes, children }) => {
         +" "+ theClass}>{children}
         </div>
     )
-    }
+}
 
 export const Collapse = ({ navState, children, id }) => { 
     const classes = navState ? 'navbar-collapse collapse show' : 'navbar-collapse collapse';
