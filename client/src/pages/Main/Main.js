@@ -47,7 +47,7 @@ export default function Main() {
         zone.coords = coordinates;
         zone.names = names;
 
-        if (history.some( ({ names }) => names.longName === zone.names.longName)) {
+        if (history.some(({ names }) => names.longName === zone.names.longName)) {
           return
         }
         if (history.length > 16) {

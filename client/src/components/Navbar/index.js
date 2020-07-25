@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Collapse } from '../Grid'
+import { Collapse, Button } from '../Grid'
 
 export default function NavBar() {
 
-    let [navLinks, showNavLinks] = useState(false)
-    const { pathname } = useLocation(),
+    const [ navLinks, showNavLinks ] = useState(false),
+     { pathname } = useLocation(),
 
-     toggleNav = () => showNavLinks(navLinks = !navLinks)
+     toggleNav = () => showNavLinks(!navLinks);
 
     return (
         <nav className={'navbar navbar-expand-lg navbar-light bg-light'}
         style={{backgroundImage: 'linear-gradient(to right, white , #fcaf17)'}}
         >
             <Link to='/' className={'navbar-brand'}>Sapling Zone Clocks</Link>
-            <button onClick={toggleNav} className={'navbar-toggler'} type="button" data-toggle="collapse" data-target="#target-collapse" >
-            <span className="navbar-toggler-icon"></span>
-            </button>
+            <Button onClick={toggleNav} className={'navbar-toggler'} type="button" data-toggle="collapse" data-target="#target-collapse" >
+                <span className="navbar-toggler-icon"></span>
+            </Button>
                 
             <Collapse navState={navLinks} id={'target-collapse'}>
               <ul className="navbar-nav mr-auto">

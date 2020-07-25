@@ -12,7 +12,7 @@ export function HistoryList({ data, loadCity, clearList }) {
                 <li className="historic-city"
                  key={i}
                  style={itemStyle}
-                 onClick={loadCity.bind(this, i)}
+                 onClick={loadCity.bind(null, i)}
                  >
                     {city.name}
                     <FourDigitClock offset={city.offset} />
@@ -33,7 +33,7 @@ export function HistoryList({ data, loadCity, clearList }) {
                 type="button"
                 className="btn btn-danger"
                 style={clrBtn}
-                onClick={clearList.bind(this, () => {isConfirmed(!confirmed)})}
+                onClick={clearList.bind(null, () => {isConfirmed(!confirmed)})}
               >
                 <i className="fas fa-exclamation"> </i> Please Confirm
               </Button>
