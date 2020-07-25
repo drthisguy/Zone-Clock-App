@@ -47,7 +47,7 @@ export default function Main() {
         zone.coords = coordinates;
         zone.names = names;
 
-        if (history.some( x => x.names.longName === zone.names.longName)) {
+        if (history.some( ({ names }) => names.longName === zone.names.longName)) {
           return
         }
         if (history.length > 16) {
@@ -115,8 +115,8 @@ export default function Main() {
 
   getCity = async city => {
     try {
-      const { results } = await API.googleThis(city),
-        [ place ] = results,
+      const { results: [ place ] } = await API.googleThis(city),
+
         longName = place.formatted_address.replace(/[0-9]/g, ''), //remove any numbering that's common here with google.
         shortName = place.address_components[0].long_name,
         lat = place.geometry.location.lat,
@@ -135,18 +135,19 @@ export default function Main() {
   },
 
   loadCityFromStorage = index => {
-    const { coords, names } = history[index],
-      zoneUrl = `/api/timezone/${coords.lat}/${coords.lng}`;
+    const { coords: { lat, lng }, names } = history[index],
+      zoneUrl = `/api/timezone/${lat}/${lng}`;
 
     setNames(names)
-    setCoordinates(coords)
+    setCoordinates({ lat, lng })
     updateUrl(zoneUrl);
   },
 
   clearHistoryList = cb => {
     localStorage.clear();
+
     setHistory([]);
-    cb();
+    cb(); //cancel edit state
   },
 
   Messenger = () => <p style={errMsg}>{errorMessage}</p>
@@ -160,11 +161,11 @@ export default function Main() {
             <div>
               <span className="fas fa-search-location" style={eyeGlass} />
               <SearchField
+                style={inputField}
                 placeholder={"Search a City..."}
                 autoComplete="off"
                 name="name"
                 value={predictions.text}
-                style={{ textIndent: "30px", borderRadius: "1rem" }}
                 onChange={onInputChange}
               />
               {renderPredictions()}
@@ -234,16 +235,20 @@ const eyeGlass = {
   top: '10px',
   left: '25px',
 },
-  historyStyle = {
-    margin: '25px 0px 25px 0px',
-    borderBottom: '1px solid',
-  },
-  errMsg = {
-    backgroundColor: '#fde4cc',
-    color: '#7f3f00',
-    position: 'relative',
-    padding: '0.75rem 1.25rem',
-    marginBottom: '1rem',
-    border: '1px solid #fcdab8',
-    borderRadius: '0.25re'
-  }
+inputField = { 
+  textIndent: "30px", 
+  borderRadius: "1rem"
+},
+historyStyle = {
+  margin: '25px 0px 25px 0px',
+  borderBottom: '1px solid',
+},
+errMsg = {
+  backgroundColor: '#fde4cc',
+  color: '#7f3f00',
+  position: 'relative',
+  padding: '0.75rem 1.25rem',
+  marginBottom: '1rem',
+  border: '1px solid #fcdab8',
+  borderRadius: '0.25re'
+}
