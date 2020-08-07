@@ -27,7 +27,6 @@ export const useFetch = () => {
         } catch (err) {
           setError(true)
           setErrorMessage(err.message)
-          setIsLoading(false)
         }
     }
         fetchZone()
