@@ -36,7 +36,6 @@ router.get('/coordinates/:city', async ({ params: { city } }, res) => {
 router.get('/timezone/:lat/:lng', async ({ params: { lat, lng } }, res) => {
 	try {
 		const url = `http://api.timezonedb.com/v2.1/get-time-zone?key=${timezoneDB_APIKey}&format=json&by=position&lat=${lat}&lng=${lng}`;
-        console.log("url", url)
          const fetch_response = await fetch(url),
 		 json = await fetch_response.json();
 
