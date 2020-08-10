@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useFetch } from '../../utils/CustomHooks';
 import { SearchField, Container, Row, Col } from '../../components/Grid';
 import { ClockMount } from '../../components/ClockMount';
@@ -9,6 +9,7 @@ import { AnalogClock } from '../../components/AnalogClock';
 import { DaylightSavings } from '../../components/DaylightSavings';
 import { WorldMap } from '../../components/WorldMap';
 import { Loading } from '../../components/Loading';
+import { debounce } from 'lodash';
 import { uuid } from 'uuidv4';
 import API from '../../utils/API';
 
@@ -62,11 +63,15 @@ export default function Main() {
   const onInputChange = async e => {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
+  },
 
-    if (value.length > 0) {
+  getPredictions = async () => {
+    const { name } = city 
+    if (!name) {return}
+    if (name.length > 0) {
       try {
         let suggestions;
-        const { predictions, status } = await API.predictCities({ ...city, name: value });
+        const { predictions, status } = await API.predictCities({ ...city, name });
 
         suggestions = status === 'OK' ? predictions.map(({ description }) => description) : ['NO SUGGESTIONS']
         setPredictions({ suggestions })
@@ -75,7 +80,14 @@ export default function Main() {
     }
   },
 
-  renderPredictions = () => {
+  delayedQuery = useCallback(debounce(getPredictions, 300), [city.name]);
+
+  useEffect(() => {
+    delayedQuery();
+    return delayedQuery.cancel;
+  }, [city.name])
+
+  const renderPredictions = () => {
     const { name } = city,
       { suggestions } = predictions;
 
