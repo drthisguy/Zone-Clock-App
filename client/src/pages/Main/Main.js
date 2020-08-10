@@ -60,13 +60,19 @@ export default function Main() {
     }
   }, [zone])
 
-  const onInputChange = async e => {
+  useEffect(() => {
+    delayedQuery();
+    return delayedQuery.cancel;
+  }, [city.name])
+
+  const onInputChange = e => {
     const { name, value } = e.target;
     setCity({ ...city, [name]: value })
   },
 
-  getPredictions = async () => {
+  getPredictions = async() => {
     const { name } = city 
+    
     if (!name) {return}
     if (name.length > 0) {
       try {
@@ -80,14 +86,9 @@ export default function Main() {
     }
   },
 
-  delayedQuery = useCallback(debounce(getPredictions, 300), [city.name]);
+  delayedQuery = useCallback(debounce(getPredictions, 150), [city.name]),
 
-  useEffect(() => {
-    delayedQuery();
-    return delayedQuery.cancel;
-  }, [city.name])
-
-  const renderPredictions = () => {
+  renderPredictions = () => {
     const { name } = city,
       { suggestions } = predictions;
 
@@ -111,7 +112,8 @@ export default function Main() {
 
   selectPredictions = str => {
     const value = normalizeString(str);
-    setPredictions({ suggestions: [], text: '' })
+    document.getElementById('query').value = '';
+    setPredictions({})
     getCity(value)
   },
 
@@ -177,6 +179,7 @@ export default function Main() {
                 placeholder={"Search a City..."}
                 autoComplete="off"
                 name="name"
+                id="query"
                 value={predictions.text}
                 onChange={onInputChange}
               />
