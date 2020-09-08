@@ -8,7 +8,7 @@ export const Row = ({ classes, children }) => <div className={classes ? `row ${c
 export const Col = ({ size, classes, children }) =>  ( 
         <div 
             className={size.split(' ').map( size => `col-${size}`).join(' ')
-            +" "+ classes || ''}>{children}
+            +" "+ (classes || '')}>{children}
         </div>
     )
 
