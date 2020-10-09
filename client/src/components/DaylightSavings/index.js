@@ -83,7 +83,7 @@ const birthdayStyle = `.DayPicker-Day--highlighted {
     'Begins June',
     'Begins July',
     'Begins August',
-    'Begins September',
+    'Begins Sept',
     'Begins October',
     'Begins November',
     'Begins December',
