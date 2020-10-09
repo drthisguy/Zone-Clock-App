@@ -4,9 +4,9 @@ export const getLocalTime = offset => {
     const userTime = new Date(),
 
     //convert user time to local time.
-        msOffset = offset * 3600,  // -> milliseconds
-        utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60000),
-        localTime = new Date(utc + 1000 * msOffset);
+        msOff = offset * 3_600_000,  // --> hours to milliseconds
+        utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60_000), // --> mins to milliseconds
+        localTime = new Date(utc + msOff);
 
     let localHours = localTime.getHours(),
         localMinutes = localTime.getMinutes(),
