@@ -59,7 +59,7 @@ export const FormatZone = zone => {
 
 
 
-const northAmerica = ['US','BM','MX','CA','TC'],
+const northAmerica = ['US','BM','CA','TC'],
     europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
     eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
 
@@ -90,6 +90,8 @@ export const getCountryGroup = code => {
             return 'Brazil';
         case 'JO':
             return 'Jordan';
+        case 'MX':
+            return 'Mexico';
         case 'CL':
             return 'Chile';
         case 'LB':
