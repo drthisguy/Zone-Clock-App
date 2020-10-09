@@ -131,7 +131,7 @@ export default function Main() {
     try {
       const { results: [ place ] } = await API.googleThis(city),
 
-        longName = place.formatted_address.replace(/[0-9]/g, ''), //remove any numbering that's common here with google.
+        longName = place.formatted_address.replace(/[0-9]/g, ''), //remove any numbering that's frequent with google results.
         shortName = place.address_components[0].long_name,
         lat = place.geometry.location.lat,
         lng = place.geometry.location.lng,
@@ -148,7 +148,7 @@ export default function Main() {
     }
   },
 
-  loadCityFromStorage = index => {
+  loadCityFromHistory = index => {
     const { coords: { lat, lng }, names } = history[index],
       zoneUrl = `/api/timezone/${lat}/${lng}`;
 
@@ -158,10 +158,13 @@ export default function Main() {
   },
 
   clearHistoryList = cb => {
-    localStorage.clear();
-
-    setHistory([]);
-    cb(); //cancel edit state
+    try {
+      localStorage.clear();
+      setHistory([]);
+    } catch (err) { setNewError(err) }
+    finally {
+      cb(); //cancel confirm state
+    }
   },
 
   Messenger = () => <p style={errMsg}>{errorMessage}</p>
@@ -192,7 +195,7 @@ export default function Main() {
           </div>
           <HistoryList
             data={history.map(({ names, rawOffset }) => new Object({ name: names.shortName, offset: rawOffset }))}
-            loadCity={loadCityFromStorage}
+            loadCity={loadCityFromHistory}
             clearList={clearHistoryList}
           />
         </Col>
