@@ -60,7 +60,8 @@ export const FormatZone = zone => {
 
 // Returns instruction for Daylight Savings.
 export const getCountryGroup = code => {
-    code = checkRegion(code);
+
+    code = getRegion(code);
 
     const DSTGroups = new Map([
         ['NA', ()=>'North American Group'],
@@ -76,20 +77,19 @@ export const getCountryGroup = code => {
         ['PY', ()=>'Paraguay'],
         ['PT', ()=>'Portugal'],
         ['SY', ()=>'Syria'],
-        ['default', ()=>'none'],
+        ['default', ()=>'none']
       ])
 
       let group = DSTGroups.get(code) || DSTGroups.get('default');
       return group.call(this);
 }
 
-// If applicable, places country into its larger DST group. 
-const northAmerica = ['US','BM','CA','TC'],
-    europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
-    eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
-function checkRegion(code) {
+// If applicable, replace country code with one for its larger DST region. 
+function getRegion(code) {
 
-    
+    const northAmerica = ['US','BM','CA','TC'],
+        europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
+        eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
 
     if(northAmerica.includes(code))
         code = 'NA'
@@ -98,7 +98,7 @@ function checkRegion(code) {
         code = 'EU'
         
     if(eastEurope.includes(code))
-        code = 'EU'
+        code = 'EE'
 
     return code;
  }

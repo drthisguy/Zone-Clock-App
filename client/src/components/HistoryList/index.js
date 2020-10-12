@@ -17,7 +17,7 @@ export function HistoryList({ data, loadCity, clearList }) {
                     {city.name}
                     <FourDigitClock offset={city.offset} />
                 </li>
-            )
+            ).reverse()
         )
     },
 
