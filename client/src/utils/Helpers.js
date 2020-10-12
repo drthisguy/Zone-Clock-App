@@ -58,55 +58,51 @@ export const FormatZone = zone => {
 }
 
 
+// Returns instruction for Daylight Savings.
+export const getCountryGroup = code => {
+    code = checkRegion(code);
 
+    const DSTGroups = new Map([
+        ['NA', ()=>'North American Group'],
+        ['EU', ()=>'European Group'],
+        ['EE', ()=>'Eastern European Group'],
+        ['GB', ()=>'United Kingdom'],
+        ['IE', ()=>'Ireland'],
+        ['BR', ()=>'Brazil'],
+        ['JO', ()=>'Jordan'],
+        ['MX', ()=>'Mexico'],
+        ['CL', ()=>'Chile'],
+        ['LB', ()=>'Lebanon'],
+        ['PY', ()=>'Paraguay'],
+        ['PT', ()=>'Portugal'],
+        ['SY', ()=>'Syria'],
+        ['default', ()=>'none'],
+      ])
+
+      let group = DSTGroups.get(code) || DSTGroups.get('default');
+      return group.call(this);
+}
+
+// If applicable, places country into its larger DST group. 
 const northAmerica = ['US','BM','CA','TC'],
     europe = ['AL','AD','AT','BY','BE','BA','HR','CZ','DK','FR','DE','GI','HU','IT','XK','LI','LU','MK','MT','ME','NL','NO','PL','SM','RS','SK','SI','ES','SE','CH','VA'],
     eastEurope = ['BG','CY','EE','FI','GR','LV','LT','MD','RO','TR','UA'];
+function checkRegion(code) {
 
-export const getCountryGroup = code => {
-
-    if (northAmerica.includes(code)) {
-        code = 'NA'
-    }
-    if (europe.includes(code)) {
-        code = 'EU'
-    }
-    if (eastEurope.includes(code)) {
-        code = 'EE'
-    }
-
-    switch (code) {
-        case 'NA':
-            return 'North American Group';
-        case 'EU':
-            return 'European Group';
-        case 'EE':
-            return 'Eastern European Group';
-        case 'GB':
-            return 'United Kingdom';
-        case 'IE':
-            return 'Ireland';
-        case 'BR':
-            return 'Brazil';
-        case 'JO':
-            return 'Jordan';
-        case 'MX':
-            return 'Mexico';
-        case 'CL':
-            return 'Chile';
-        case 'LB':
-            return 'Lebanon';
-        case 'PY':
-            return 'Paraguay';
-        case 'PT':
-            return 'Portugal';
-        case 'SY':
-            return 'Syria';
     
-        default:
-            return 'none';
-    }
-}
+
+    if(northAmerica.includes(code))
+        code = 'NA'
+
+    if(europe.includes(code))
+        code = 'EU'
+        
+    if(eastEurope.includes(code))
+        code = 'EU'
+
+    return code;
+ }
+
 
 /* Because DST start times don't actually exist, they get bumped up to the next hour as part of its Unix timestamp. 
 Therefore, we'll make em into a string w/ the proper time, and use that in our UI.  */   
