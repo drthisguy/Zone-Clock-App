@@ -17,10 +17,11 @@ export const getLocalTime = offset => {
 
 //format timezoneDB response data for use with Sapling clocks and their programming.
 export const FormatZone = zone => {
-/*-- Multiplying 3E6 converts hours to ms, 60k converts mins and 1k converts secs.
+/*-- Multiplying 3.6E6 converts hours to milliseconds, 60k converts mins and 1k converts secs.
 --Dividing by 3600 converts seconds to hours. */
 
-    let { dst, gmtOffset, zoneStart, zoneEnd } = zone;
+    let { dst, gmtOffset, zoneStart, zoneEnd, zoneName, countryCode, countryName } = zone,
+     now = Date.now();
 
     //get offset in hours
      dst = dst === '1' ? 'ON' : 'OFF';
@@ -39,13 +40,23 @@ export const FormatZone = zone => {
     let dstEnd = new Date(zoneEnd * 1_000);
 
     //convert dst times from EST to its local time.  
-     dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset() * 60_000);
-     dstStart = new Date(dstStart + 3_600_000 * rawOffset);
-     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset() * 60_000);
-     dstEnd = new Date(dstEnd + 3_600_000 * rawOffset);
+     dstStart = dstStart.getTime() + 
+        //This calculation affected by its relative differences in time.  Current DST status has to be considered (60mins added).  
+        (60_000 * (dst === 'OFF' ? (dstStart.getTimezoneOffset() + 60) : dstStart.getTimezoneOffset())); 
+     dstStart = new Date(dstStart + 3.6E6 * rawOffset);
+     dstEnd = dstEnd.getTime() + 
+        (60_000 * (dst === 'OFF' ? (dstEnd.getTimezoneOffset() + 60) : dstEnd.getTimezoneOffset()));
+     dstEnd = new Date(dstEnd + 3.6E6 * (rawOffset));
 
-    //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. 
-    if(new Date() > dstStart && new Date() < dstEnd && dst === 'OFF') {
+    //Mixed dst schedule from one year with another creates bugs.  
+     if(now > dstEnd && now.getFullYear() === dstEnd.getFullYear()) {
+        const a = dstStart;
+        dstStart = dstEnd;
+        dstEnd = a;
+     }
+
+    // //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. Reverses designations if they're invalid.
+    if(now > dstStart && now < dstEnd && dst === 'OFF') {
         const a = dstStart;
         dstStart = dstEnd;
         dstEnd = a;
@@ -54,12 +65,8 @@ export const FormatZone = zone => {
      dstEnd = dstEnd.getYear() === 69 || dstEnd.getYear() === 70 ? 'none' : dstEnd;
      console.log("dstEnd", dstEnd, dstStart.getTimezoneOffset())
 
-     //other needed data 
-     const { zoneName, countryCode, countryName } = zone;
-    
     return { zoneName, offset, bias, dst, dstStart, dstEnd, rawOffset, countryName, countryCode };
 }
-
 
 // Returns instruction for Daylight Savings.
 export const getCountryGroup = code => {
