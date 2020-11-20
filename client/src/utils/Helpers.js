@@ -4,9 +4,9 @@ export const getLocalTime = offset => {
     const userTime = new Date(),
 
     //convert user time to local time.
-        msOff = offset * 3_600_000,  // --> hours to milliseconds
+        offsetInMS = offset * 3_600_000,  // --> hours to milliseconds
         utc = userTime.getTime() + (userTime.getTimezoneOffset() * 60_000), // --> mins to milliseconds
-        localTime = new Date(utc + msOff);
+        localTime = new Date(utc + offsetInMS);
 
     let localHours = localTime.getHours(),
         localMinutes = localTime.getMinutes(),
@@ -15,32 +15,34 @@ export const getLocalTime = offset => {
     return { localHours, localMinutes, localSeconds }
 }
 
-//format timezoneDB data for Sapling clock programming.
+//format timezoneDB response data for use with Sapling clocks and their programming.
 export const FormatZone = zone => {
+/*-- Multiplying 3E6 converts hours to ms, 60k converts mins and 1k converts secs.
+--Dividing by 3600 converts seconds to hours. */
 
     let { dst, gmtOffset, zoneStart, zoneEnd } = zone;
 
-    //get real offset in hours
+    //get offset in hours
      dst = dst === '1' ? 'ON' : 'OFF';
-    const rawOffset = gmtOffset/3600,
+    const rawOffset = gmtOffset/3_600,
      preOff = dst === 'ON' ? rawOffset - 1 : rawOffset;
     let offset = Math.floor(preOff);
-     offset = offset > 0 ? '+'+ offset : offset;
+     offset = offset > 0 ? '+' + offset : offset;
 
     //workout the bias offset in seconds
     let bias = Math.abs(preOff);
-     bias = (bias - Math.floor(bias)) * 3600;
+     bias = (bias - Math.floor(bias)) * 3_600;
      bias = bias !== 0 ? '+' + bias : bias;
     
     //reformat unix dst dates
-    let dstStart = new Date(zoneStart*1000);
-    let dstEnd = new Date(zoneEnd*1000);
+    let dstStart = new Date(zoneStart * 1_000);
+    let dstEnd = new Date(zoneEnd * 1_000);
 
-    //convert dst times from EST to its local time.
-     dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset()*60000);
-     dstStart = new Date(dstStart + 3600000 * rawOffset);
-     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset() * 60000);
-     dstEnd = new Date(dstEnd + 3600000 * rawOffset);
+    //convert dst times from EST to its local time.  
+     dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset() * 60_000);
+     dstStart = new Date(dstStart + 3_600_000 * rawOffset);
+     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset() * 60_000);
+     dstEnd = new Date(dstEnd + 3_600_000 * rawOffset);
 
     //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. 
     if(new Date() > dstStart && new Date() < dstEnd && dst === 'OFF') {
@@ -48,10 +50,11 @@ export const FormatZone = zone => {
         dstStart = dstEnd;
         dstEnd = a;
     }
-    //create a condition for no DST. 
+    //condition for no DST. 
      dstEnd = dstEnd.getYear() === 69 || dstEnd.getYear() === 70 ? 'none' : dstEnd;
+     console.log("dstEnd", dstEnd, dstStart.getTimezoneOffset())
 
-     //other data used
+     //other needed data 
      const { zoneName, countryCode, countryName } = zone;
     
     return { zoneName, offset, bias, dst, dstStart, dstEnd, rawOffset, countryName, countryCode };
@@ -60,7 +63,6 @@ export const FormatZone = zone => {
 
 // Returns instruction for Daylight Savings.
 export const getCountryGroup = code => {
-
     code = getRegion(code);
 
     const DSTGroups = new Map([
@@ -84,7 +86,7 @@ export const getCountryGroup = code => {
       return group.call(this);
 }
 
-// If applicable, replace country code with one for its larger DST region. 
+// If applicable, replace country code with one for its larger timezone region. 
 function getRegion(code) {
 
     const northAmerica = ['US','BM','CA','TC'],
@@ -104,8 +106,8 @@ function getRegion(code) {
  }
 
 
-/* Because DST start times don't actually exist, they get bumped up to the next hour as part of its Unix timestamp. 
-Therefore, we'll make em into a string w/ the proper time, and use that in our UI.  */   
+/* Because DST start times don't actually exist, they get bumped up or back to the adjacent hour as part of its Unix timestamp. 
+Therefore, they'll get converted into a string w/ the proper time, to be sent to the UI.  */   
 export const stringTime = date => {
     let localHours = date.getHours() - 1, //get and correct the hour.
      localMinutes = date.getMinutes();
