@@ -46,11 +46,9 @@ export const FormatZone = zone => {
      dstEnd = new Date(dstEnd + 3600000 * rawOffset);
 
     // //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. Reverses designations if they're invalid.
-    if(now > dstStart && now < dstEnd && dst === 'OFF') {
-        const a = dstStart;
-        dstStart = dstEnd;
-        dstEnd = a;
-    }
+    if(now > dstStart && now < dstEnd && dst === 'OFF') 
+        [dstStart, dstEnd] = [dstEnd, dstStart];
+    
     //create a condition for no DST. 
      dstEnd = dstEnd.getYear() === 69 || dstEnd.getYear() === 70 ? 'none' : dstEnd;
 
