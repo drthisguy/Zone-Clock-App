@@ -18,36 +18,36 @@ export const getLocalTime = offset => {
 //format timezoneDB data for Sapling clock programming.
 export const FormatZone = zone => {
 /*-- Multiplying 3.6E6 converts hours to milliseconds, 60k converts mins and 1k converts secs.
---Dividing by 3600 converts seconds to hours. */
+--Dividing or multiplying by 3600 converts seconds to hours or vice versa respectively. */
 
     let { dst, gmtOffset, zoneStart, zoneEnd, zoneName, countryCode, countryName } = zone,
      now = Date.now();
 
     //get real offset in hours
      dst = dst === '1' ? 'ON' : 'OFF';
-    const rawOffset = gmtOffset/3600,
+    const rawOffset = gmtOffset/3_600,
      preOff = dst === 'ON' ? rawOffset - 1 : rawOffset;
     let offset = Math.floor(preOff);
      offset = offset > 0 ? '+'+ offset : offset;
 
     //workout the bias offset in seconds
     let bias = Math.abs(preOff);
-     bias = (bias - Math.floor(bias)) * 3600;
+     bias = (bias - Math.floor(bias)) * 3_600;
      bias = bias !== 0 ? '+' + bias : bias;
     
     //reformat unix dst dates
-    let dstStart = new Date(zoneStart*1000);
-    let dstEnd = new Date(zoneEnd*1000);
+    let dstStart = new Date(zoneStart * 1_000);
+    let dstEnd = new Date(zoneEnd * 1_000);
 
     //convert dst times from EST to its local time.
-     dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset()*60000);
-     dstStart = new Date(dstStart + 3600000 * rawOffset);
-     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset() * 60000);
-     dstEnd = new Date(dstEnd + 3600000 * rawOffset);
+     dstStart = dstStart.getTime() + (dstStart.getTimezoneOffset() * 60_000);
+     dstStart = new Date(dstStart + 3.6E6 * rawOffset);
+     dstEnd = dstEnd.getTime() + (dstEnd.getTimezoneOffset() * 60_000);
+     dstEnd = new Date(dstEnd + 3.6E6 * rawOffset);
 
     // //Some of the DST data from the resource is inaccurate. This check validates DST dates in the southern hemisphere. Reverses designations if they're invalid.
     if(now > dstStart && now < dstEnd && dst === 'OFF') 
-        [dstStart, dstEnd] = [dstEnd, dstStart];
+        [ dstStart, dstEnd ] = [ dstEnd, dstStart ];
     
     //create a condition for no DST. 
      dstEnd = dstEnd.getYear() === 69 || dstEnd.getYear() === 70 ? 'none' : dstEnd;
