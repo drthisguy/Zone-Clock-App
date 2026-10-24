@@ -2,8 +2,8 @@ const express = require('express'),
 fetch = require('node-fetch'),
 router = express.Router(),
 
-timezoneDB_APIKey = process.env.TIMEZONEDB_APIKEY;
-googleAPIKey = process.env.GOOGLE_APIKEY;
+timezoneDB_APIKey = process.env.REACT_APP_TIMEZONEDB_APIKEY;
+googleAPIKey = process.env.REACT_APP_GOOGLE_APIKEY;
 
 
 // loads city predictions when typing
